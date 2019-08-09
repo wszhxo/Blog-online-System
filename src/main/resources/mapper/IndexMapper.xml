@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coderzhx.mapper.IndexMapper">
+    <select id="listMenu" resultType="Menu">
+       select id,pid,name,order_no as 'orderNo',status,icon,url from menu ORDER BY orderNo;
+    </select>
+    <select id="listAdminMenu" resultType="Menu">
+       select id,pid,name,order_no as 'orderNo',status,icon,url from menu_admin ORDER BY orderNo;
+    </select>
+    <select id="listConfig" resultType="Config">
+       select * from config;
+    </select>
+    <select id="listLink" resultType="Link">
+       select * from link ORDER BY orderno ;
+    </select>
+
+</mapper>

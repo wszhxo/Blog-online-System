@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>头部</title>
+</head>
+<body>
+<header  th:fragment="head">
+    <!--menu begin-->
+    <div class="menu">
+        <nav class="nav" id="topnav">
+            <h1 class="logo"><a href="http://coderzhx.cn">LOGO</a></h1>
+                <li th:each="menus : ${listMenu}" th:if="${menus.pid} == 0"><a th:text="${menus.name}" th:href="@{${menus.url}}" href="index.html"></a>
+                    <ul class="sub-nav">
+                        <li th:each="menus2 : ${listMenu}" th:if="${menus2.pid==menus.id}" >
+                            <a href="list.html"  th:text="${menus2.name}" th:href="@{${menus2.url}}"></a>
+                        </li>
+                    </ul>
+                </li>
+            <!--search begin-->
+            <div id="search_bar" class="search_bar">
+                <form  id="searchform" action="/search" method="post" name="searchform">
+                    <input class="input" placeholder="想搜点什么呢..." type="text" name="keyword" id="keyboard"/>
+                    <input type="hidden" name="Submit" value="搜索" />
+                    <span class="search_ico"></span>
+                </form>
+            </div>
+            <!--search end-->
+        </nav>
+    </div>
+    <!--menu end-->
+    <!--mnav begin-->
+    <div id="mnav">
+        <h2><a href="http://www.yangqq.com" class="mlogo">小张博客</a><span class="navicon"></span></h2>
+        <dl class="list_dl">
+            <div  th:each="menus3 : ${listMenu}" th:if="${menus3.pid} == 0">
+                <dt  class="list_dt"> <a  th:text="${menus3.name}" th:href="@{${menus3.url}}"  href="#"></a> </dt>
+                <dd class="list_dd">
+                    <ul>
+                      <li th:each="menus4 : ${listMenu}" th:if="${menus4.pid==menus3.id}" >
+                          <a href="list.html"  th:text="${menus4.name}" th:href="@{${menus4.url}}"></a>
+                      </li>
+                    </ul>
+                </dd>
+            </div>
+        </dl>
+    </div>
+    <!--mnav end-->
+</header>
+
+</body>
+</html>

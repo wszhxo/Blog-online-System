@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coderzhx.mapper.BlogMapper">
+    <resultMap id="blogMap" type="Blog">
+        <result column="id" property="id"/>
+        <result column="summary" property="summary"/>
+        <result column="content" property="content"/>
+        <result column="html_content" property="html_content"/>
+        <result column="img_url" property="img_url"/>
+        <result column="title" property="title"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="state" property="state"/>
+        <result column="hits" property="hits"/>
+        <result column="category_id" property="category_id"/>
+        <result column="likeit" property="likeit"/>
+        <association property="blogCategory" javaType="cn.coderzhx.entity.BlogCategory">
+            <result column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="create_time" property="create_time"/>
+            <result column="update_time" property="update_time"/>
+            <result column="order_no" property="order_no"/>
+            <result column="url" property="url"/>
+            <result column="count" property="count"/>
+        </association>
+    </resultMap>
+
+    <!--列出博客-->
+    <select id="listBlogs" resultMap="blogMap" parameterType="cn.coderzhx.pojo.PageBean">
+        select b.*,c.name from blog b  LEFT JOIN blog_category c  ON b.category_id=c.id where b.state=1 order by create_time desc
+        <if test="currentPage!=null and currentPage!=''">
+            limit #{index},#{pageSize};
+        </if>
+    </select>
+    <!--列出博客通过分类-->
+    <select id="listBlogsByCategory" resultMap="blogMap" parameterType="cn.coderzhx.pojo.PageBean">
+        select b.*,c.name from blog b  LEFT JOIN blog_category c  ON b.category_id=c.id
+        where b.state=1 and b.category_id=#{category}
+        order by create_time desc
+        <if test="currentPage!=null and currentPage!=''">
+            limit #{index},#{pageSize};
+        </if>
+    </select>
+    <!--列出博客通过标签-->
+    <select id="listBlogsByTags" resultMap="blogMap" parameterType="cn.coderzhx.pojo.PageBean">
+        SELECT b.* ,t.tag_name from blog b RIGHT JOIN tags t ON b.id=t.blog_id
+        WHERE b.state=1 and tag_name=#{tags}
+        order by create_time desc
+        <if test="currentPage!=null and currentPage!=''">
+            limit #{index},#{pageSize};
+        </if>
+    </select>
+    <!--列出后台博客-->
+    <select id="listBlogsAdmin" resultMap="blogMap" parameterType="cn.coderzhx.pojo.PageBean">
+        select b.*,c.name from blog b LEFT JOIN blog_category c  ON b.category_id=c.id
+        <where>
+            <if test="category!=0">
+              and b.category_id=#{category}
+            </if>
+            <if test="title!=null and title!=''">
+             and b.title like '%${title}%'
+            </if>
+        </where>
+        order by create_time desc
+        <if test="currentPage!=null and currentPage!=''">
+            limit #{index},#{pageSize};
+        </if>
+    </select>
+    <!--查询文章数量-->
+    <select id="countBlog" resultType="Integer" parameterType="cn.coderzhx.pojo.PageBean">
+       select count(id) from blog
+        <where>
+            <if test="category!=0">
+                and category_id=#{category}
+            </if>
+            <if test="title!=null and title!=''">
+                and title like '%${title}%'
+            </if>
+        </where>
+    </select>
+    <!--查询文章分类-->
+    <select id="listCategory" resultType="BlogCategory">
+       SELECT * FROM blog_category
+    </select>
+    <!--查询文章标签，并显示数量-->
+    <select id="listTags" resultType="Tags" parameterType="Integer">
+        select id,tag_name ,url,COUNT(blog_id) as num from tags
+        <where>
+            <if test="id!=null and id!=0">
+                and blog_id=#{id}
+            </if>
+        </where>
+        GROUP BY tag_name
+    </select>
+    <!--查询上一篇文章-->
+    <select id="findBeforeBlog" resultType="Blog" parameterType="Integer">
+       select id,title  from blog where  id> #{id}  limit 1;
+    </select>
+    <!--查询下一篇文章-->
+    <select id="findAfterBlog" resultType="Blog" parameterType="Integer">
+        select id,title  from blog where id &lt; #{id} order by  id desc  limit 1;
+    </select>
+    <!--根据id列出博文-->
+    <select id="findBlogById" resultMap="blogMap" parameterType="Integer">
+     select b.*,c.name,c.url  from blog b LEFT JOIN blog_category c  ON b.category_id=c.id where b.id=#{id};
+    </select>
+    <!--点赞-->
+    <update id="addLike" parameterType="Integer">
+        UPDATE blog SET likeit=likeit+1 WHERE id=#{id};
+    </update>
+    <!--浏览次数-->
+    <update id="addHits" parameterType="Integer">
+        UPDATE blog SET hits=hits+1 WHERE id=#{id};
+    </update>
+    <!--添加文章并返回id-->
+    <insert id="addBlog" parameterType="blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+INSERT INTO blog(summary,content,html_content,img_url,title,create_time,update_time,state,hits,category_id,likeit)
+ VALUES(#{summary},#{content},#{html_content},#{img_url},#{title},NOW(),NOW(),#{state},#{hits},#{category_id},#{likeit})
+    </insert>
+    <!--删除文章-->
+    <delete id="delBlog" parameterType="Integer">
+        delete from blog where id=#{id}
+    </delete>
+    <!--删除指定文章标签-->
+    <delete id="delTags" parameterType="tags">
+        delete from tags
+        <where>
+            <if test="tag_name!=null and tag_name!=''">
+                and tag_name=#{tag_name}
+            </if>
+            <if test="blog_id!=null and blog_id!=0">
+                and blog_id=#{blog_id}
+            </if>
+        </where>
+    </delete>
+    <!--添加标签-->
+    <insert id="addTags" parameterType="tags"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert  into tags(blog_id,tag_name) values(#{blog_id},#{tag_name})
+    </insert>
+    <!--用于设置标签url-->
+    <update id="setTagUrl" parameterType="Integer">
+          UPDATE tags SET url=CONCAT('/blog/tags/',#{id}) WHERE id= #{id};
+    </update>
+    <!--删除分类-->
+    <delete id="delCategory" parameterType="Integer">
+        delete from blog_category where id=#{id}
+    </delete>
+    <!--添加分类-->
+    <insert id="addCategory" parameterType="blogCategory"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO blog_category(name,CREATE_time) VALUE(#{name},NOW());
+    </insert>
+    <!--用于设置分类url-->
+    <update id="setUrl" parameterType="Integer">
+          UPDATE blog_category SET url=CONCAT('/blog/category/',#{id}) WHERE id= #{id};
+    </update>
+    <!--修改分类-->
+    <update id="editCategory" parameterType="blogCategory">
+          UPDATE blog_category SET name=#{name},update_time=NOW() WHERE id= #{id};
+    </update>
+    <!--修改文章-->
+    <update id="editBlog" parameterType="Blog" >
+        UPDATE blog SET summary=#{summary},
+	content=#{content},
+	html_content=#{html_content},
+	img_url=#{img_url},
+	title=#{title},
+	update_time=NOW(),
+	state=#{state},
+	category_id=#{category_id}
+	 WHERE id=#{id};
+    </update>
+</mapper>

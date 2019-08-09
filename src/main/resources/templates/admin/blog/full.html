@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Full example - Editor.md examples</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--layui-->
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <!--md-->
+    <link rel="stylesheet" href="css/style.css" th:href="@{/editor.md-master/examples/css/style.css}"/>
+    <link rel="stylesheet" href="../css/editormd.css" th:href="@{/editor.md-master/css/editormd.css}"/>
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>
+    <!--图片大小-->
+    <style>
+        .layui-upload-img {
+            width: 92px;
+            height: 92px;
+            margin: 0 10px 10px 0;
+        }
+
+        .surfaceThree {
+            float: left;
+            position: relative;
+            top: 30px;
+            height: 30px;
+            width: 120px;
+            background: #00c4ff;
+            text-align: center;
+            line-height: 30px;
+            font-size: 16px;
+            color: #fff;
+
+        }
+
+        .surfaceThree input {
+            position: absolute;
+            top: 5px;
+            left:-70px;
+            height: 30px;
+            /* 重点代码让input隐藏 */
+            opacity: 0;
+        }
+
+        .surfaceThree input:hover {
+            opacity: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="layout">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form class="layui-form" action="" lay-filter="component-form-element">
+                <div class="layui-row layui-col-space10 layui-form-item">
+                    <label class="layui-form-label">标题:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" th:value="${blog!=null}?${blog.title}" lay-verify="required" placeholder="标题" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item">
+                    <div th:if="${tags!=null}" class="layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">标签:</label>
+                            <div class="layui-input-block">
+                                <div  th:each="tag :${tags}" >
+                                <input type="checkbox" name="tags" th:value="${tag.tag_name}" th:title="${tag.tag_name}" lay-verify="required"  >
+                                <div class="layui-unselect layui-form-checkbox"><span th:text="${tag.tag_name}"> 写作</span><i
+                                        class="layui-icon layui-icon-ok"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-card">
+                            <div class="surfaceThree">选择图片
+                                <input type="file" name="file">
+                            </div>
+                            <img class="layui-upload-img" id="mypic" src="" alt="预览图">
+                            <button type="button" class="layui-btn" id="sub">上传七牛云</button>
+                            <input type="text" name="img_url" placeholder="显示回显路径" lay-verify="required" id="imgUrl"
+                                   autocomplete="off" class="layui-input"  th:value="${blog!=null}?${blog.img_url}" >
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item">
+                    <div class="layui-col-lg6">
+                        <label class="layui-form-label">分类:</label>
+                        <div class="layui-input-block">
+                            <select name="category_id" lay-verify="required" lay-filter="aihao">
+                                <option value="">--分类--</option>
+                                <option th:each="cate :${blogCategory}" th:value="${cate.id}" th:text="${cate.name}" th:selected="${blog!=null}?${cate.id==blog.category_id}" ></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <label class="layui-form-label">状态:</label>
+                        <input type="radio" name="state" value="1" title="发布" th:checked="${blog!=null}?${blog.state==1}"><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon layui-anim-scaleSpring"></i><div>发布</div></div>
+                        <input type="radio" name="state" value="0" title="草稿" th:checked="${blog!=null}?${blog.state==0}"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>草稿</div></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">文章简介：</label>
+                    <div class="layui-input-block">
+                        <textarea name="summary"  th:utext="${blog!=null}?${blog.summary}" placeholder="" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <input name="content" type="hidden" id="content" th:value="${blog!=null}?${blog.content}">
+                <input name="html_content" type="hidden" id="htmlcontent" >
+                <div th:if="${blog!=null}">
+                    <input  name="id" type="hidden"  th:value="${blog!=null}?${blog.id}">
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="addBlog-button" th:if="${tags!=null}" lay-filter="addBlog-button">立即添加</button>
+                        <button class="layui-btn" lay-submit="editBlog-button" th:if="${tags==null}" lay-filter="editBlog-button">立即修改</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="btns">
+        <button id="goto-line-btn">Goto line 90</button>
+        <button id="show-btn">Show editor</button>
+        <button id="hide-btn">Hide editor</button>
+        <button id="get-md-btn">获取Markdown</button>
+        <button id="put-md-btn">md放入表单</button>
+        <button id="get-html-btn">Html放入表单</button>
+        <button id="watch-btn">Watch</button>
+        <button id="unwatch-btn">Unwatch</button>
+        <button id="preview-btn">Preview HTML (Press Shift + ESC cancel)</button>
+        <button id="fullscreen-btn">Fullscreen (Press ESC cancel)</button>
+        <button id="show-toolbar-btn">Show toolbar</button>
+        <button id="close-toolbar-btn">Hide toolbar</button>
+        <button id="toc-menu-btn">ToC Dropdown menu</button>
+        <button id="toc-default-btn">ToC default</button>
+    </div>
+    <div id="test-editormd"></div>
+</div>
+<script src="js/jquery.min.js" th:src="@{/editor.md-master/examples/js/jquery.min.js}"></script>
+<script src="../editormd.js" th:src="@{/editor.md-master/editormd.js}"></script>
+<script src="../../../layuiadmin/layui/layui.js"></script>
+
+
+<script>
+
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload'], function () {
+        var $ = layui.$
+            , admin = layui.admin
+            , element = layui.element
+            , form = layui.form
+            , upload = layui.upload;
+
+        form.render(null, 'component-form-element');
+        element.render('breadcrumb', 'breadcrumb');
+        //添加
+        form.on('submit(addBlog-button)', function (data,index) {
+            var field = data.field; //获取提交的字段
+            //提交 Ajax 成功后，关闭当前弹层并重载表格
+            $.ajax({
+                url: "/admin/addBlog",
+                dataType: 'text',
+                data: field,
+                type: 'get',
+                success: function (data) {
+                    layer.alert('添加成功',function(){
+                        window.parent.location.reload();//刷新父页面
+                        parent.layer.close(index);//关闭弹出层
+                    });
+                }
+            })
+            return false;
+        });
+        //修改
+        form.on('submit(editBlog-button)', function (data,index) {
+            var field = data.field; //获取提交的字段
+            //提交 Ajax 成功后，关闭当前弹层并重载表格
+            $.ajax({
+                url: "/admin/editBlog",
+                dataType: 'text',
+                data: field,
+                type: 'get',
+                success: function (data) {
+                    layer.alert('修改成功',function(){
+                        window.parent.location.reload();//刷新父页面
+                        parent.layer.close(index);//关闭弹出层
+                    });
+                }
+            })
+            return false;
+        });
+
+        //选完文件后不自动上传
+        upload.render({
+            elem: '#test-upload-change'
+            , auto: false
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    var testEditor;
+
+    $(function () {
+
+        $.get('/editor.md-master/examples/test.md', function (md) {
+            testEditor = editormd("test-editormd", {
+                width: "90%",
+                height: 740,
+                path: '../../../editor.md-master/lib/',
+                theme: "white",
+                previewTheme: "white",
+                editorTheme: "white",
+                markdown: md,
+                codeFold: true,
+                saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                searchReplace: true,
+                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+                emoji: true,
+                taskList: true,
+                tocm: true,         // Using [TOCM]
+                tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,             // 开启流程图支持，默认关闭
+                sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/admin/uploadImg",
+                onload: function () {
+                    console.log('onload', this);
+                }
+            });
+        });
+
+        $("#goto-line-btn").bind("click", function () {
+            testEditor.gotoLine(90);
+        });
+
+        $("#show-btn").bind('click', function () {
+            testEditor.show();
+        });
+
+        $("#hide-btn").bind('click', function () {
+            testEditor.hide();
+        });
+
+        $("#get-md-btn").bind('click', function () {
+            testEditor.setMarkdown( $("#content").val())
+
+        });
+        $("#put-md-btn").bind('click', function () {
+            $("#content").val(testEditor.getMarkdown())
+
+        });
+
+        $("#get-html-btn").bind('click', function () {
+            $("#htmlcontent").val(testEditor.getHTML())
+        });
+
+        $("#watch-btn").bind('click', function () {
+            testEditor.watch();
+        });
+
+        $("#unwatch-btn").bind('click', function () {
+            testEditor.unwatch();
+        });
+
+        $("#preview-btn").bind('click', function () {
+            testEditor.previewing();
+        });
+
+        $("#fullscreen-btn").bind('click', function () {
+            testEditor.fullscreen();
+        });
+
+        $("#show-toolbar-btn").bind('click', function () {
+            testEditor.showToolbar();
+        });
+
+        $("#close-toolbar-btn").bind('click', function () {
+            testEditor.hideToolbar();
+        });
+
+        $("#toc-menu-btn").click(function () {
+            testEditor.config({
+                tocDropdown: true,
+                tocTitle: "目录 Table of Contents",
+            });
+        });
+
+        $("#toc-default-btn").click(function () {
+            testEditor.config("tocDropdown", false);
+        });
+    });
+</script>
+<script>
+    //七牛token 七牛云平台安全标识
+    var qiniutoken = '';
+    //七牛云图片base64格式上传地址
+    var uploadUrl = "http://upload.qiniu.com/putb64/-1";
+    //需要上传的图片内容 base64格式
+    var imgStr = '';
+    //七牛云平台 配置的域名
+    var urlHeader = "http://puu1qclkk.bkt.clouddn.com/";
+    //获取七牛云token
+    $($.ajax({
+        type: "post",
+        dataType: "text",
+        url: "/admin/uploadqiniu",
+        success: function (data) {
+            qiniutoken = data;
+        }
+    }));
+
+    //上传图片
+    function uploadImg() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", uploadUrl, true);
+        //文本类型
+        xhr.setRequestHeader("Content-Type", "application/octet-stream");
+        //七牛认证信息 注意空格
+        xhr.setRequestHeader("Authorization", "UpToken " + qiniutoken);
+        xhr.send(imgStr);
+        //监听状态
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var result = xhr.responseText;
+                result = JSON.parse(result);
+                $("#mypic").attr("src", urlHeader + result.hash);
+                $("#imgUrl").val(urlHeader + result.hash);
+            }
+        }
+
+    }
+
+    //将图片转为base64格式的字符串
+    $('input[type=file]').on('change', function () {
+        var reader = new FileReader();
+        //filses就是input[type=file]文件列表，files[0]就是第一个文件，这里就是将选择的第一个图片文件转化为base64的码
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function (e) {
+            //或者 e.target.result都是一样的，都是base64码
+            imgStr = reader.result.split(',')[1];
+        }
+    });
+    //开始上传
+    $("#sub").click(function () {
+        uploadImg();
+    });
+
+</script>
+</body>
+</html>

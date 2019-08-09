@@ -1,0 +1,215 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${config.title}"></title>
+  <meta name="keywords" th:content="${config.keyword}"/>
+  <meta name="description" th:content="${config.description}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/base.css" rel="stylesheet">
+  <link href="/css/index.css" rel="stylesheet">
+  <link href="/css/m.css" rel="stylesheet">
+  <script src="/js/jquery.min.js" type="text/javascript"></script>
+  <script src="/js/jquery.easyfader.min.js"></script>
+  <script src="/js/scrollReveal.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/modernizr.js"></script>
+  <link rel="stylesheet" href="/editor.md-master/css/editormd.preview.css" />
+  <script src="/editor.md-master/lib/marked.min.js"></script>
+  <script src="/editor.md-master/lib/prettify.min.js"></script>
+  <script src="/editor.md-master/lib/raphael.min.js"></script>
+  <script src="/editor.md-master/lib/underscore.min.js"></script>
+  <script src="/editor.md-master/lib/sequence-diagram.min.js"></script>
+  <script src="/editor.md-master/lib/flowchart.min.js"></script>
+  <script src="/editor.md-master/lib/jquery.flowchart.min.js"></script>
+  <script src="/editor.md-master/editormd.min.js" type="text/javascript" charset="utf-8"></script>
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+<body>
+<!--引入头部-->
+<div th:replace="header :: head"></div>
+<article>
+  <h1 class="t_nav"><span>您现在的位置是：首页 > 慢生活 > 程序人生</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">慢生活</a></h1>
+  <div class="infosbox">
+    <div class="newsview">
+      <h3 class="news_title" th:text="${blogById.title}">个人博客，属于我的小世界！</h3>
+      <div class="bloginfo">
+        <ul>
+<!--          <li class="author"><a href="/">杨青</a></li>-->
+          <li class="lmname"><a th:href="@{|${blogById.blogCategory.url}|}" th:text="${blogById.blogCategory.name}">学无止境</a></li>
+          <li class="timer"  th:text="发布于+${#strings.substring(blogById.create_time,0,10)}"></li>
+          <li class="timer"  th:text="修改于+${#strings.substring(blogById.update_time,0,10)}" ></li>
+          <li class="view" th:text="${blogById.hits}+已阅读">4567已阅读</li>
+          <li class="like" th:text="${blogById.likeit}+喜欢">8888888</li>
+        </ul>
+      </div>
+      <div class="tags"  th:each="tag : ${tags}" ><a th:href="@{|${tag.url}|}" th:text="${tag.tag_name}" target="_blank">个人博客</a> &nbsp;</div>
+      <div class="news_about"  th:utext="${blogById.summary}"><strong>简介</strong>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</div>
+      <div class="news_con"  id="md_html"  >
+        <div class="panel-body">
+          <!-- 用于显示md编辑器的md格式 -->
+          <div  id="test-editormd-view">
+            <textarea style="display: none;" th:utext="${blogById.content}"></textarea>
+          </div>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="share">
+      <p class="diggit"><a id="dian" href="javascript:void(0);" th:onclick="'javascript:dianzan('+${blogById.id}+')'"> 很赞哦！ </a>(<b id="diggnum" th:utext="${blogById.likeit}"></b>)</p>
+      <p class="dasbox"><a href="javascript:void(0);" onClick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏本站</a></p>
+      <div class="hide_box"></div>
+      <div class="shang_box"> <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭">关闭</a>
+        <div class="shang_tit">
+          <p>感谢您的支持，我会继续努力的!</p>
+        </div>
+        <div class="shang_payimg"> <img th:src="|${config.Alipay}|" alt="扫码支持" title="扫一扫"> </div>
+        <div class="pay_explain">扫码打赏，你说多少就多少</div>
+        <div class="shang_payselect">
+          <div class="pay_item checked" data-id="alipay"> <span class="radiobox"></span> <span class="pay_logo"><img src="/images/alipay.jpg" alt="支付宝"></span> </div>
+          <div class="pay_item" data-id="weipay"> <span class="radiobox"></span> <span class="pay_logo"><img src="/images/wechat.jpg" alt="微信"></span> </div>
+        </div>
+        <script type="text/javascript">
+    $(function(){
+    	$(".pay_item").click(function(){
+    		$(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+    		var dataid=$(this).attr('data-id');
+    		$(".shang_payimg img").attr("src","/images/"+dataid+"img.jpg");
+    		$("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+    	});
+    });
+    function dashangToggle(){
+    	$(".hide_box").fadeToggle();
+    	$(".shang_box").fadeToggle();
+    }
+        </script>
+
+        <script type="text/javascript">
+          $(function() {
+            var testEditormdView;
+            testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+              htmlDecode      : "style,script,iframe",  // you can filter tags decode
+              emoji           : true,
+              taskList        : true,
+              tex             : true,  // 默认不解析
+              flowChart       : true,  // 默认不解析
+              sequenceDiagram : true,  // 默认不解析
+            });
+          });
+        </script>
+        <script type="text/javascript">
+          var isumi=true;
+          var zhi = document.getElementById("diggnum");
+          var dian = document.getElementById("dian");
+          function dianzan(id) {
+            if(isumi){
+              isumi=false;
+              zhi.innerText=parseInt(zhi.innerText)+1;
+              $.ajax({
+                type:"post",
+                url:"/blog/"+id,
+                success:function(data){return false;}
+              });
+            }else{
+              alert("老哥,你已经点过赞了!取消不了哈哈!")
+            }
+          }
+        </script>
+      </div>
+    </div>
+    <div class="nextinfo">
+      <p>上一篇：<a th:href="${beforeBlog.id==0}?'javascript:void(0);':@{|/blog/${beforeBlog.id}|}" th:text="${beforeBlog.title}">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
+      <p>下一篇：<a th:href="${afterBlog.id==0}?'javascript:void(0);':@{|/blog/${afterBlog.id}|}" th:text="${afterBlog.title}">返回列表</a></p>
+    </div>
+    <div class="otherlink">
+      <h2>相关文章</h2>
+      <ul>
+        <li><a href="/download/div/2018-04-22/815.html" title="html5个人博客模板《黑色格调》">html5个人博客模板《黑色格调》</a></li>
+        <li><a href="/download/div/2018-04-18/814.html" title="html5个人博客模板主题《清雅》">html5个人博客模板主题《清雅》</a></li>
+        <li><a href="/download/div/2018-03-18/807.html" title="html5个人博客模板主题《绅士》">html5个人博客模板主题《绅士》</a></li>
+        <li><a href="/download/div/2018-02-22/798.html" title="html5时尚个人博客模板-技术门户型">html5时尚个人博客模板-技术门户型</a></li>
+        <li><a href="/download/div/2017-09-08/789.html" title="html5个人博客模板主题《心蓝时间轴》">html5个人博客模板主题《心蓝时间轴》</a></li>
+        <li><a href="/download/div/2017-07-16/785.html" title="古典个人博客模板《江南墨卷》">古典个人博客模板《江南墨卷》</a></li>
+        <li><a href="/download/div/2017-07-13/783.html" title="古典风格-个人博客模板">古典风格-个人博客模板</a></li>
+        <li><a href="/download/div/2015-06-28/748.html" title="个人博客《草根寻梦》—手机版模板">个人博客《草根寻梦》—手机版模板</a></li>
+        <li><a href="/download/div/2015-04-10/746.html" title="【活动作品】柠檬绿兔小白个人博客模板">【活动作品】柠檬绿兔小白个人博客模板</a></li>
+        <li><a href="/jstt/bj/2015-01-09/740.html" title="【匆匆那些年】总结个人博客经历的这四年…">【匆匆那些年】总结个人博客经历的这四年…</a></li>
+      </ul>
+    </div>
+    <div class="news_pl">
+      <h2>文章评论</h2>
+      <ul>
+        <div class="gbko"> </div>
+      </ul>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="tuijian">
+      <h2 class="hometitle">推荐文章</h2>
+      <ul class="tjpic">
+        <i><img src="images/toppic01.jpg"></i>
+        <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
+      </ul>
+      <ul class="sidenews">
+        <li> <i><img src="images/toppic01.jpg"></i>
+          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
+          <span>2018-05-13</span> </li>
+        <li> <i><img src="images/toppic02.jpg"></i>
+          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
+          <span>2018-05-13</span> </li>
+        <li> <i><img src="images/v1.jpg"></i>
+          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
+          <span>2018-05-13</span> </li>
+        <li> <i><img src="images/v2.jpg"></i>
+          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
+          <span>2018-05-13</span> </li>
+      </ul>
+    </div>
+    <div class="tuijian">
+      <h2 class="hometitle">点击排行</h2>
+      <ul class="tjpic">
+        <i><img src="images/toppic01.jpg"></i>
+        <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
+      </ul>
+      <ul class="sidenews">
+        <li> <i><img src="images/toppic01.jpg"></i>
+          <p><a href="/">别让这些闹心的套路</a></p>
+          <span>2018-05-13</span> </li>
+        <li> <i><img src="images/toppic02.jpg"></i>
+          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
+          <span>2018-05-13</span> </li>
+        <li> <i><img src="images/v1.jpg"></i>
+          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
+          <span>2018-05-13</span> </li>
+        <li> <i><img src="images/v2.jpg"></i>
+          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
+          <span>2018-05-13</span> </li>
+      </ul>
+    </div>
+    <div class="cloud">
+      <h2 class="hometitle">标签云</h2>
+      <ul >
+        <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>
+      </ul>
+    </div>
+    <div class="guanzhu" id="follow-us">
+      <h2 class="hometitle">关注我们 么么哒！</h2>
+      <ul>
+        <li class="tencent"><a href="/" target="_blank" th:value="${config.github}"><span>GitHub</span>https://github.com/wszhxo</a>
+        </li>
+        <li class="qq"><a href="/" target="_blank" th:value="${config.qq}"><span>QQ号</span>2500621077</a></li>
+        <li class="email"><a href="/" target="_blank" th:value="${config.qq}+'@qq.com'"><span>邮箱帐号</span>cuber.zhx@qq.com</a>
+        </li>
+        <li class="wxgzh"><a href="/" target="_blank" th:value="${config.wechat}"><span>微信公众号</span></a></li>
+        <li class="wx"><img alt="张洪祥" th:src="|${config.wechat_icon}|"/></li>
+      </ul>
+    </div>
+  </div>
+</article>
+<!--引入尾部-->
+<div th:replace="footer :: foot"></div>
+<a href="#" class="cd-top">Top</a>
+</body>
+</html>

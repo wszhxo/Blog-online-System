@@ -1,0 +1,142 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${config.title}"></title>
+    <meta name="keywords" th:content="${config.keyword}"/>
+    <meta name="description" th:content="${config.description}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/jquery.easyfader.min.js"></script>
+    <script src="/js/scrollReveal.js"></script>
+    <script src="/js/common.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/js/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--引入头部-->
+<!--
+　　　　　　　 ┏┓       ┏┓+ +
+　　　　　　　┏┛┻━━━━━━━┛┻┓ + +
+　　　　　　　┃　　　　　　 ┃
+　　　　　　　┃　　　━　　　┃ ++ + + +
+　　　　　　 █████━█████  ┃+
+　　　　　　　┃　　　　　　 ┃ +
+　　　　　　　┃　　　┻　　　┃
+　　　　　　　┃　　　　　　 ┃ + +
+　　　　　　　┗━━┓　　　 ┏━┛
+                ┃　　  ┃
+　　　　　　　　　┃　　  ┃ + + + +
+　　　　　　　　　┃　　　┃　Code is far away from bug with the animal protecting
+　　　　　　　　　┃　　　┃ + 　　　　         神兽保佑,代码无bug
+　　　　　　　　　┃　　　┃
+　　　　　　　　　┃　　　┃　　+
+　　　　　　　　　┃　 　 ┗━━━┓ + +
+　　　　　　　　　┃ 　　　　　┣┓
+　　　　　　　　　┃ 　　　　　┏┛
+　　　　　　　　　┗┓┓┏━━━┳┓┏┛ + + + +
+　　　　　　　　　 ┃┫┫　 ┃┫┫
+　　　　　　　　　 ┗┻┛　 ┗┻┛+ + + +
+-->
+<div th:replace="header :: head"></div>
+<article>
+    <!--banner begin-->
+    <div class="container">
+        <h1 class="t_nav"><span>慢生活，不是懒惰，放慢速度不是拖延时间，而是让我们在生活中寻找到平衡。</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">慢生活</a></h1>
+    <!--blogsbox begin-->
+    <div class="blogsbox">
+        <div class="blogs" data-scroll-reveal="enter bottom over 1s" th:each="bl : ${listBlogs2}">
+            <h3 class="blogtitle"><a href="/" target="_blank"  th:text="${bl.title}" th:href="@{/blog/}+${bl.id}" >别让这些闹心的套路，毁了你的网页设计!</a></h3>
+            <span class="blogpic"><a href="/" title=""><img src="images/toppic01.jpg" th:src="|${bl.img_url}|" th:alt="${bl.title}"></a></span>
+            <p class="blogtext"  th:text="${bl.summary}"></p>
+            <div class="bloginfo">
+                <ul>
+<!--                    <li class="author"><a href="/" th:text="${config.name}">小张</a></li>-->
+                    <li class="lmname"><a th:href="@{|${bl.blogCategory.url}|}" th:text="${bl.blogCategory.name}"></a></li>
+                    <li class="timer"  th:text="${bl.create_time}">2018-5-13</li>
+                    <li class="view"><span  th:text="${bl.hits}">34567</span>已阅读</li>
+                    <li class="like"  th:text="${bl.likeit}">9999喜欢</li>
+                </ul>
+            </div>
+        </div>
+        <div class="blogs" data-scroll-reveal="enter bottom over 1s">
+            <h3 class="blogtitle"><a href="/" target="_blank">别让这些闹心的套路，毁了你的网页设计!</a></h3>
+            <span class="bplist"><a href="/" title="">
+      <li><img src="images/avatar.jpg" alt=""></li>
+      <li><img src="images/toppic02.jpg" alt=""></li>
+      <li><img src="images/banner01.jpg" alt=""></li>
+      </a></span>
+            <p class="blogtext">如图，要实现上图效果，我采用如下方法：1、首先在数据库模型，增加字段，分别是图片2，图片3。2、增加标签模板，用if，else if
+                来判断，输出。思路已打开，样式调用就可以多样化啦！... </p>
+            <div class="bloginfo">
+                <ul>
+                    <li class="author"><a href="/">小张</a></li>
+                    <li class="lmname"><a href="/">学无止境</a></li>
+                    <li class="timer">2018-5-13</li>
+                    <li class="view"><span>34567</span>已阅读</li>
+                    <li class="like">9999</li>
+                </ul>
+            </div>
+        </div>
+        <div class="blogs" data-scroll-reveal="enter bottom over 1s">
+            <h3 class="blogtitle"><a href="/" target="_blank">别让这些闹心的套路，毁了你的网页设计!</a></h3>
+            <span class="bigpic"><a href="/" title=""><img src="images/toppic01.jpg" alt=""></a></span>
+            <p class="blogtext">如图，要实现上图效果，我采用如下方法：1、首先在数据库模型，增加字段，分别是图片2，图片3。2、增加标签模板，用if，else if
+                来判断，输出。思路已打开，样式调用就可以多样化啦！... </p>
+            <div class="bloginfo">
+                <ul>
+                    <li class="author"><a href="/">小张</a></li>
+                    <li class="lmname"><a href="/">学无止境</a></li>
+                    <li class="timer">2018-5-13</li>
+                    <li class="view"><span>34567</span>已阅读</li>
+                    <li class="like">9999</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--blogsbox end-->
+    <div class="sidebar">
+        <div class="tuijian">
+            <h2 class="hometitle">点击排行</h2>
+            <ul class="tjpic">
+                <i><img src="images/toppic01.jpg"></i>
+                <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
+            </ul>
+            <ul class="sidenews">
+                <li><i><img src="images/toppic01.jpg"></i>
+                    <p><a href="/">别让这些闹心的套路</a></p>
+                    <span>2018-05-13</span></li>
+                <li><i><img src="images/toppic02.jpg"></i>
+                    <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
+                    <span>2018-05-13</span></li>
+                <li><i><img src="images/v1.jpg"></i>
+                    <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
+                    <span>2018-05-13</span></li>
+                <li><i><img src="images/v2.jpg"></i>
+                    <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
+                    <span>2018-05-13</span></li>
+            </ul>
+        </div>
+        <div class="guanzhu" id="follow-us">
+            <h2 class="hometitle">关注我们 么么哒！</h2>
+            <ul>
+                <li class="tencent"><a href="/" target="_blank" th:value="${config.github}"><span>GitHub</span>https://github.com/wszhxo</a>
+                </li>
+                <li class="qq"><a href="/" target="_blank" th:value="${config.qq}"><span>QQ号</span>2500621077</a></li>
+                <li class="email"><a th:href="@{|http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=${config.qq}@qq.com|}" target="_blank" th:value="${config.qq}+'@qq.com'"><span>邮箱帐号</span>cuber.zhx@qq.com</a>
+                </li>
+                <li class="wxgzh"><a href="/" target="_blank" th:value="${config.wechat}"><span>微信公众号</span></a></li>
+                <li class="wx"><img alt="张洪祥" th:src="|${config.wechat_icon}|"/></li>
+            </ul>
+        </div>
+    </div>
+</article>
+<!--引入尾部-->
+<div th:replace="footer :: foot"></div>
+<a href="#" class="cd-top">Top</a>
+</body>
+</html>

@@ -1,0 +1,206 @@
+@charset "gb2312";
+#md_html .markdown-here-wrapper {
+    font-size: 16px;
+    line-height: 1.8em;
+    letter-spacing: 0.1em;
+}
+
+#md_html pre, code {
+    font-size: 14px;
+    font-family: Roboto, 'Courier New', Consolas, Inconsolata, Courier, monospace;
+    margin: auto 4px;
+}
+
+#md_html code {
+    padding: 2px 4px !important;
+    font-size: 16px !important;
+    color: #556B2F !important;
+    background-color: #f9f2f4 !important;
+}
+
+#md_html pre {
+    font-size: 15px;
+    line-height: 1.4em;
+    display: block;
+!important;
+    padding: 2px 4px !important;
+    font-size: 90% !important;
+    color: #c7254e !important;
+    background-color: #F4F4F4 !important;
+}
+
+#md_html pre code {
+    white-space: pre;
+    overflow: auto;
+    border-radius: 3px;
+    padding: 1px 1px;
+    display: block !important;
+    background-color: #F5FFFA !important;
+}
+
+#md_html strong, b {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+    font-size: 90%;
+    font-weight: 500;
+}
+
+#md_html em, i {
+    color: #009688;
+}
+
+#md_html hr {
+    border: 1px solid #BF360C;
+    margin: 1.5em auto;
+}
+
+#md_html p {
+    margin: 1.5em 5px !important;
+}
+
+#md_html table, pre, dl, blockquote, q, ul, ol {
+    margin: 10px 5px;
+}
+
+#md_html ul, ol {
+    padding-left: 15px;
+}
+
+#md_html li {
+    margin: 10px;
+}
+
+#md_html li p {
+    margin: 10px 0 !important;
+}
+
+#md_html ul ul, ul ol, ol ul, ol ol {
+    margin: 0;
+    padding-left: 10px;
+}
+
+#md_html ul {
+    list-style-type: circle;
+}
+
+#md_html dl {
+    padding: 0;
+}
+
+#md_html dl dt {
+    font-size: 1em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+#md_html dl dd {
+    margin: 0 0 10px;
+    padding: 0 10px;
+}
+
+#md_html blockquote, q {
+    border-left: 5px solid #aa6708;
+    border-right: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 0 10px;
+    color: #777;
+    quotes: none;
+    font-size: 15px;
+    border-radius: 3px;
+}
+
+#md_html blockquote strong, b {
+    color: #3f3f3f;
+    font-size: 17px;
+    background: none !important;
+}
+
+#md_html blockquote::before, blockquote::after, q::before, q::after {
+    content: none;
+}
+
+#md_html h1, #md_html h2, #md_html h3, #md_html h4, #md_html h5, #md_html h6 {
+    margin: 20px 0 10px;
+    padding: 0;
+    font-style: bold !important;
+    color: #6f5a40 !important;
+    text-align: center !important;
+    margin: 1.5em 5px !important;
+    padding: 0.5em 1em !important;
+}
+
+#md_html h1 {
+    font-size: 24px !important;
+    text-align: left !important;
+    margin: 1.5em -10px !important;
+    border-bottom: 1px solid #ddd !important;
+}
+
+#md_html h2 {
+    font-size: 22px !important;
+    text-align: left !important;
+    margin: 1.5em -8px !important;
+}
+
+#md_html h3 {
+    font-size: 20px !important;
+    text-align: left !important;
+    margin: 1.5em -5px !important;
+}
+
+#md_html h4 {
+    font-size: 18px;
+    text-align: left !important;
+    margin: 1.5em -5px !important;
+}
+
+#md_html h5 {
+    font-size: 17px;
+    text-align: left !important;
+    margin: 1.5em -5px !important;
+}
+
+#md_html table {
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 12px;
+    font: inherit;
+    border: 0;
+    margin: 0 auto;
+}
+
+#md_html tbody {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#md_html table tr {
+    border: 0;
+    border-top: 1px solid #CCC;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+#md_html table tr:nth-child(2n) {
+    background-color: #F8F8F8;
+}
+
+#md_html table tr th, table tr td {
+    font-size: 16px;
+    border: 1px solid #CCC;
+    margin: 0;
+    padding: 5px 10px;
+}
+
+#md_html table tr th {
+    font-weight: bold;
+    color: #eee;
+    border: 1px solid #aa6708;
+    background-color: #aa6708;
+}

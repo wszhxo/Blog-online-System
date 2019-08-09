@@ -1,0 +1,141 @@
+
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.flex-text-wrap {
+    width: 100%;
+    position: relative;
+    *zoom: 1;
+}
+textarea,
+.flex-text-wrap {
+    outline: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+    *padding-bottom: 0!important;
+}
+.flex-text-wrap textarea,
+.flex-text-wrap pre {
+    *white-space: pre;
+    *word-wrap: break-word;
+    white-space: pre-wrap;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.flex-text-wrap textarea {
+
+    top: 30px;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    resize: none;
+    /* IE7 box-sizing fudge factor */
+    *height: 94%;
+    *width: 94%;
+}
+
+
+.flex-text-wrap pre {
+    display: block;
+    visibility: hidden;
+}
+.flex-text-wrap,
+textarea { margin-bottom: 25px }
+textarea,
+.flex-text-wrap pre {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    line-height: 1.7;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    padding: 10px 15px;
+    border: 1px solid #c6c8ce;
+    width: 100%;
+    -webkit-appearance: none;
+    background: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 0 8px rgba(182, 195, 214, .6) inset, 0 1px 1px #fff;
+    -moz-box-shadow: 0 0 8px rgba(182, 195, 214, .6) inset, 0 1px 1px #fff;
+    box-shadow: 0 0 8px rgba(182, 195, 214, .6) inset, 0 1px 1px #fff;
+    -webkit-transition-duration: 300ms;
+    -moz-transition-duration: 300ms;
+    -o-transition-duration: 300ms;
+    -ms-transition-duration: 300ms;
+    transition-duration: 300ms;
+    -webkit-transition-easing: ease-in-out;
+    -moz-transition-easing: ease-in-out;
+    -o-transition-easing: ease-in-out;
+    -ms-transition-easing: ease-in-out;
+    transition-easing: ease-in-out;
+    -webkit-transition-property: border-color, -webkit-box-shadow;
+    -webkit-transition-property: border-color, box-shadow;
+    -moz-transition-property: border-color, -moz-box-shadow;
+    -moz-transition-property: border-color, box-shadow;
+    -o-transition-property: border-color, box-shadow;
+    -ms-transition-property: border-color, box-shadow;
+    transition-property: border-color, box-shadow;
+}
+.fork-link {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 140px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio:1.25), (min-resolution:120dpi) {
+    html {
+        background-size: 51px auto;
+    }
+}
+			#box{/* # id选择器*/
+                position: relative;
+				width:100%;/*宽度*/
+				height:40px;/*高度*/
+				margin:10px auto;/*上下为100px 左右自动(居中)*/
+			}
+			.info{/* . class类选择器 */
+				float:left;/*左浮动:漂浮起来*/
+				width:100%;
+				height:100px;
+
+			}
+		
+			.info ul li{/*混合选择器*/
+				float:left;
+				list-style:none;/*去除前面的小黑圆点*/
+				width:200px;
+				height:40px;
+				background:#199872;
+				margin:10px 20px;
+				color:#fff;/*文字颜色*/
+				border-radius:10px;/*圆角属性*/
+		
+				text-align:center;/*左右对齐方式: 居中*/
+				line-height:40px;/*行高*/
+			}
+			.info ul li span{
+				float:left;
+				width:50px;
+				height:40px;
+			}
+			.info ul li input{
+				float:left;
+				width:150px;
+				height:40px;
+				border:1px;/*去除默认的边框 低版本IE不支持none*/
+				text-indent:10px;/*首行缩进*/
+				background:#f6f6f6;
+			}
+			
