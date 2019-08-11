@@ -27,18 +27,15 @@
               <i class="layui-icon layui-icon-refresh-3"></i>
             </a>
           </li>
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;" layadmin-event="refreshCache" title="刷新缓存">
+              刷新缓存
+            </a>
+          </li>
 
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
-          <li class="layui-nav-item" lay-unselect>
-            <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
-              <i class="layui-icon layui-icon-notice"></i>
-
-              <!-- 如果有新消息，则显示小圆点 -->
-              <span class="layui-badge-dot"></span>
-            </a>
-          </li>
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="theme">
               <i class="layui-icon layui-icon-theme"></i>
@@ -130,7 +127,12 @@
     base: '../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use('index');
+  }).use(['index', 'form', 'upload'], function () {
+    var form = layui.form;
+    var element = layui.element;
+  })
+    //缓存按钮我写在了layuiadmin/lib/admin.js里边
+
   </script>
   
 

@@ -83,7 +83,13 @@ class BlogServiceImpl implements BlogService {
 
     @Override
     public List<BlogCategory> listCategory() {
-        return blogMapper.listCategory();
+
+        List<BlogCategory> blogCategories = blogMapper.listCategory();
+        //把该标签的文章数量
+        for (BlogCategory blogCategory : blogCategories) {
+            blogCategory.setCount(blogMapper.countBlogCategoty(blogCategory.getId()));
+        }
+        return blogCategories;
     }
 
     @Override
@@ -96,7 +102,9 @@ class BlogServiceImpl implements BlogService {
         blogMapper.delBlog(id);
         Tags tags = new Tags();
         tags.setBlog_id(id);
+        //删除标签
         blogMapper.delTags(tags);
+
     }
 
     @Override
@@ -108,10 +116,13 @@ class BlogServiceImpl implements BlogService {
     public void addTags(int id, String[] tags) {
         for (int i = 0; i <tags.length ; i++) {
             Tags tags1=new Tags();
-            tags1.setBlog_id(id);
             tags1.setTag_name(tags[i]);
-            blogMapper.addTags(tags1);
-            blogMapper.setTagUrl(tags1.getId());
+            if (id!=0) {
+                tags1.setBlog_id(id);blogMapper.addTags(tags1);
+            }else{
+                blogMapper.addTags2(tags1);
+            }
+            blogMapper.setTagUrl(tags[i],tags1.getId());
         }
 
     }
@@ -119,6 +130,9 @@ class BlogServiceImpl implements BlogService {
     public void   batchdelBLog(String[] id) {
         for (int i = 0; i <id.length ; i++) {
             blogMapper.delBlog(Integer.parseInt(id[i]));
+            Tags tags = new Tags();
+            tags.setBlog_id(Integer.parseInt(id[i]));
+            blogMapper.delTags(tags);
         }
     }
     @Override

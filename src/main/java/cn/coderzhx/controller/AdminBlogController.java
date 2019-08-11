@@ -85,6 +85,7 @@ public class AdminBlogController {
     //添加文章
     @GetMapping("/addBlog")
     public String  listBlog(@RequestParam(value = "tags") String[] tags,Blog blog) throws Exception {
+        blog.setImg_url(blog.getImg_url()+"?imageView/1/w/200/h/200");
         //获取id用于标签添加，只要getId就好了
         blogService.addBlog(blog);
         //添加文章索引
@@ -127,8 +128,7 @@ public class AdminBlogController {
     }
     //添加标签
     @GetMapping("/addTags")
-    public String  addTag(int id,String tags){
-        System.out.println(tags);
+    public String  addTag(Integer id,String tags){
         String[] s={tags};
         blogService.addTags(id,s);
         return "success";
@@ -139,10 +139,19 @@ public class AdminBlogController {
         List<Tags> tags = blogService.listTags(id);
         return LayuiJSON.jsonStr("",tags.size(),tags);
     }
+    //展示标签
+    @GetMapping("/findTags2/{id}")
+    public String  findTags2(@PathVariable("id")int id){
+        List<Tags> tags = blogService.listTags(id);
+        String str="";
+        for (int i = 0; i <tags.size() ; i++) {
+            str=tags.get(i).getTag_name()+",";
+        }
+        return str;
+    }
     //删除某个文章的标签
     @GetMapping("/delTags")
     public String  delTags(Tags tags){
-        System.out.println(tags);
         blogService.delTags(tags);
         return "success";
     }

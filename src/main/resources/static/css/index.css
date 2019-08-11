@@ -189,7 +189,7 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 .news_content { line-height: 24px; font-size: 14px; }
 .news_content p { overflow: hidden; padding-bottom: 4px; padding-top: 6px; word-wrap: break-word; }
 .tags a { background: #F4650E; padding: 3px 8px; margin: 0 5px 0 0; color: #fff; }
-.tags { margin: 30px 0; }
+.tags { margin: 30px 0;display: inline-block; }
 .infosbox .news_con { line-height: 1.8; font-size: 16px; text-align: justify; }
 .infosbox .news_con p { margin-bottom: 25px; }
 .infosbox .news_con img { max-width: 650px; height: auto; }

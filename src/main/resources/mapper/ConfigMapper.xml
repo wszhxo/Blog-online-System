@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coderzhx.mapper.ConfigMapper">
+    <update id="editconfigsiteInfo" parameterType="config">
+        UPDATE config SET
+        qq=#{qq},
+        wechat=#{wechat},
+        wechatgzh=#{wechatgzh},
+        github=#{github},
+        create_time=#{create_time},
+        beian=#{beian},
+        banquan=#{banquan},
+        tongji=#{tongji}
+    </update>
+    <update id="editconfigseoInfo" parameterType="config">
+        UPDATE config SET
+        title=#{title},
+        keyword=#{keyword},
+        description=#{description}
+    </update>
+    <update id="editconfigmeInfo" parameterType="config">
+        UPDATE config SET
+        username=#{username},
+        name=#{name},
+        job=#{job},
+        summary=#{summary},
+        html_desc=#{html_desc}
+    </update>
+    <update id="editconfigpicInfo" parameterType="config">
+        UPDATE config SET
+        icon=#{icon},
+        wechat_icon=#{wechat_icon},
+        weixinpay=#{weixinpay},
+        Alipay=#{Alipay}
+    </update>
+
+</mapper>

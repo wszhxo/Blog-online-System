@@ -14,9 +14,7 @@ import cn.coderzhx.utils.IpUtils;
 import cn.coderzhx.utils.VerifyCodeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +35,8 @@ public class IndexController {
     BlogMapper blogMapper;
     @Resource
     private CommentService commentService;
+    @Resource
+    private IndexUtils indexUtils;
         //主页
     @RequestMapping("/")
     public String index( PageBean pageBean,Model model,HttpServletRequest request) throws Exception {
@@ -66,10 +66,8 @@ public class IndexController {
 
     //关于我
     @RequestMapping("/message")
-    public String message(Model model){
-        //列出15个评论
-        PageBean pageBean2=new PageBean(0,commentService.countComment(),15);
-        PageBean commentList=commentService.listComment(pageBean2);
+    public String message(Model model,PageBean pageBean2){
+        PageBean commentList=commentService.listComment2(pageBean2);
         model.addAttribute("commentList",commentList);
         showMenu(model);
         return "message";
@@ -94,7 +92,6 @@ public class IndexController {
         pageBean.setTags(tag);
         List<Blog> blogs = blogMapper.listBlogsByTags(pageBean);
         model.addAttribute("blogs",blogs);
-        System.out.println(blogs);
         showMenu(model);
         return "time";
     }
@@ -105,16 +102,14 @@ public class IndexController {
         pageBean.setCategory(id);
         List<Blog> blogs = blogMapper.listBlogsByCategory(pageBean);
         model.addAttribute("blogs",blogs);
-        System.out.println(blogs);
         showMenu(model);
         return "time";
     }
     //刷新缓存
     @RequestMapping("/reflash")
-    public String reflash(Model model){
-        new IndexUtils().init();
-        showMenu(model);
-        return "index";
+    public @ResponseBody  String reflash(){
+        indexUtils.refresh();
+        return "success";
     }
     public static void showMenu(Model model){
          //调用菜单
@@ -123,10 +118,7 @@ public class IndexController {
         final Config config=IndexUtils.configList;
         //友情链接
         final List<Link> listLink=IndexUtils.listLink;
-        //关于我
-         final Blog aboutmeMd=IndexUtils.aboutmeMd;
 
-         model.addAttribute("aboutmeMd",aboutmeMd);
          model.addAttribute("listMenu",menuList);
          model.addAttribute("config",config);
          model.addAttribute("listLink",listLink);

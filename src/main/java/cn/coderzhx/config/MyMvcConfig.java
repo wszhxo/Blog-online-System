@@ -30,11 +30,13 @@ public class MyMvcConfig  extends WebMvcConfigurerAdapter {
         registry.addViewController("/admin/menu").setViewName("admin/config/menu");
         //友情后台菜单
         registry.addViewController("/admin/menu_admin").setViewName("admin/config/menu_admin");
-        //网站基本配置
-        registry.addViewController("/admin/base").setViewName("admin/config/base");
         //添加标签
         registry.addViewController("/admin/addTag").setViewName("admin/blog/addTag");
-        //添加标签
+        //添加分类
         registry.addViewController("/admin/addCategory").setViewName("admin/blog/addCategory");
+        //后台菜单
+        registry.addViewController("/adminMenu").setViewName("admin/config/menu_admin");
+        //前台菜单
+        registry.addViewController("/menu").setViewName("admin/config/menu");
     }
 }

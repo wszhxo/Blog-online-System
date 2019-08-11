@@ -362,6 +362,18 @@ layui.define('view', function(exports){
       iframe[0].contentWindow.location.reload(true);
     }
 
+
+    ,refreshCache: function () {
+      $.ajax({
+        type: 'post',
+        url: '/reflash',
+        success: function (data) {
+          layer.msg('刷新成功');
+        }
+      })
+
+    }
+
     //输入框搜索
     ,serach: function(othis){
       othis.off('keypress').on('keypress',function(e){

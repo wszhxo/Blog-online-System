@@ -25,12 +25,23 @@ public class PageBean<T> {
     //全局搜索条件
     private String word;
 
-    //后台搜索条件
+    //博客管理后台搜索条件
     private String title;
     private int category;
 
     //根据标签查出文章
     private String tags;
+
+    //留言管理后台搜索条件
+    private String qq;
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
 
     public String getTags() {
         return tags;

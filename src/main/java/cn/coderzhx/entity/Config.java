@@ -29,6 +29,24 @@ public class Config implements Serializable {
     private String create_time;
     private String job;
     private String github;
+    private String banquan;
+    private String tongji;
+
+    public String getBanquan() {
+        return banquan;
+    }
+
+    public void setBanquan(String banquan) {
+        this.banquan = banquan;
+    }
+
+    public String getTongji() {
+        return tongji;
+    }
+
+    public void setTongji(String tongji) {
+        this.tongji = tongji;
+    }
 
     public String getGithub() {
         return github;
@@ -202,6 +220,10 @@ public class Config implements Serializable {
                 ", summary='" + summary + '\'' +
                 ", title='" + title + '\'' +
                 ", create_time='" + create_time + '\'' +
+                ", job='" + job + '\'' +
+                ", github='" + github + '\'' +
+                ", banquan='" + banquan + '\'' +
+                ", tongji='" + tongji + '\'' +
                 '}';
     }
 }

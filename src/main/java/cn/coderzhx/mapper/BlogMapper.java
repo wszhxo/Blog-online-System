@@ -33,10 +33,13 @@ public interface BlogMapper {
     void delBlog(@Param("id") Integer id);
     void editBlog(Blog blog);
     void addTags(Tags tags);
-    void setTagUrl(@Param("id") int id);
+    void addTags2(Tags tags);
+    void setTagUrl(@Param("tagName") String tagName,@Param("id") int id);
     void delTags(Tags tags);
     void addCategory(BlogCategory blogCategory);
     void setUrl(@Param("id") int id);
     void delCategory(@Param("id") int id);
     void editCategory(BlogCategory blogCategory);
+    int countBlogCategoty(@Param("category_id") int category_id);
+
 }

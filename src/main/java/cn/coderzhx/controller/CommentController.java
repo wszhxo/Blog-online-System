@@ -1,11 +1,10 @@
 package cn.coderzhx.controller;
 
 import cn.coderzhx.entity.Comment;
+import cn.coderzhx.pojo.PageBean;
 import cn.coderzhx.service.CommentService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import cn.coderzhx.utils.LayuiJSON;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -27,9 +26,37 @@ public class CommentController {
     //添加评论
     @PostMapping("/add")
     public String addComment(Comment comment){
-        System.out.println(comment.toString());
         commentservice.addComment(comment);
         return "success";
     }
-
+    //评论状态修改
+    @PostMapping("/editStatus")
+    public String editStatus(Comment comment){
+        commentservice.editStatus(comment);
+        return "success";
+    }
+    //删除评论
+    @PostMapping("/delComment/{id}")
+    public String delComment(@PathVariable("id") Integer id){
+        System.out.println("delComment"+id);
+        commentservice.delComment(id);
+        return "success";
+    }
+    //批量删除评论
+    @PostMapping("/batchdelComment/{id}")
+    public String batchdelComment(@PathVariable("id") String id){
+        System.out.println("batchdelComment"+id);
+        commentservice.batchdelComment(id);
+        return "success";
+    }
+    //后台列出文章
+    @RequestMapping("/listComment")
+    public String  listBlog(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                            @RequestParam(value = "limit", defaultValue = "7") Integer limit,
+                            PageBean pageBean){
+        pageBean.setCurrentPage(page);
+        pageBean.setPageSize(limit);
+        PageBean<Comment> list = commentservice.listComment(pageBean);
+        return LayuiJSON.jsonStr("",list.getTotalCount(),list.getList());
+    }
 }

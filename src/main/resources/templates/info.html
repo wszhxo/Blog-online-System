@@ -45,7 +45,7 @@
         </ul>
       </div>
       <div class="tags"  th:each="tag : ${tags}" ><a th:href="@{|${tag.url}|}" th:text="${tag.tag_name}" target="_blank">个人博客</a> &nbsp;</div>
-      <div class="news_about"  th:utext="${blogById.summary}"><strong>简介</strong>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</div>
+      <div class="news_about"  th:utext="${blogById.summary}"><strong>简介</strong></div>
       <div class="news_con"  id="md_html"  >
         <div class="panel-body">
           <!-- 用于显示md编辑器的md格式 -->
@@ -127,46 +127,11 @@
       <h2>相关文章</h2>
       <ul>
         <li><a href="/download/div/2018-04-22/815.html" title="html5个人博客模板《黑色格调》">html5个人博客模板《黑色格调》</a></li>
-        <li><a href="/download/div/2018-04-18/814.html" title="html5个人博客模板主题《清雅》">html5个人博客模板主题《清雅》</a></li>
-        <li><a href="/download/div/2018-03-18/807.html" title="html5个人博客模板主题《绅士》">html5个人博客模板主题《绅士》</a></li>
-        <li><a href="/download/div/2018-02-22/798.html" title="html5时尚个人博客模板-技术门户型">html5时尚个人博客模板-技术门户型</a></li>
-        <li><a href="/download/div/2017-09-08/789.html" title="html5个人博客模板主题《心蓝时间轴》">html5个人博客模板主题《心蓝时间轴》</a></li>
-        <li><a href="/download/div/2017-07-16/785.html" title="古典个人博客模板《江南墨卷》">古典个人博客模板《江南墨卷》</a></li>
-        <li><a href="/download/div/2017-07-13/783.html" title="古典风格-个人博客模板">古典风格-个人博客模板</a></li>
-        <li><a href="/download/div/2015-06-28/748.html" title="个人博客《草根寻梦》—手机版模板">个人博客《草根寻梦》—手机版模板</a></li>
-        <li><a href="/download/div/2015-04-10/746.html" title="【活动作品】柠檬绿兔小白个人博客模板">【活动作品】柠檬绿兔小白个人博客模板</a></li>
-        <li><a href="/jstt/bj/2015-01-09/740.html" title="【匆匆那些年】总结个人博客经历的这四年…">【匆匆那些年】总结个人博客经历的这四年…</a></li>
-      </ul>
-    </div>
-    <div class="news_pl">
-      <h2>文章评论</h2>
-      <ul>
-        <div class="gbko"> </div>
       </ul>
     </div>
   </div>
   <div class="sidebar">
-    <div class="tuijian">
-      <h2 class="hometitle">推荐文章</h2>
-      <ul class="tjpic">
-        <i><img src="images/toppic01.jpg"></i>
-        <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-      </ul>
-      <ul class="sidenews">
-        <li> <i><img src="images/toppic01.jpg"></i>
-          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/toppic02.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/v1.jpg"></i>
-          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/v2.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
-      </ul>
-    </div>
+
     <div class="tuijian">
       <h2 class="hometitle">点击排行</h2>
       <ul class="tjpic">
@@ -191,7 +156,7 @@
     <div class="cloud">
       <h2 class="hometitle">标签云</h2>
       <ul >
-        <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>
+        <a th:href="@{${s.url}}" th:utext="${s.tag_name}" th:each="s : ${listTags}" >陌上花开</a>
       </ul>
     </div>
     <div class="guanzhu" id="follow-us">
@@ -200,7 +165,7 @@
         <li class="tencent"><a href="/" target="_blank" th:value="${config.github}"><span>GitHub</span>https://github.com/wszhxo</a>
         </li>
         <li class="qq"><a href="/" target="_blank" th:value="${config.qq}"><span>QQ号</span>2500621077</a></li>
-        <li class="email"><a href="/" target="_blank" th:value="${config.qq}+'@qq.com'"><span>邮箱帐号</span>cuber.zhx@qq.com</a>
+        <li class="email"><a href="/" target="_blank" th:href="@{|http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=${config.qq}@qq.com|}" th:value="${config.qq}+'@qq.com'"><span>邮箱帐号</span>cuber.zhx@qq.com</a>
         </li>
         <li class="wxgzh"><a href="/" target="_blank" th:value="${config.wechat}"><span>微信公众号</span></a></li>
         <li class="wx"><img alt="张洪祥" th:src="|${config.wechat_icon}|"/></li>

@@ -83,7 +83,7 @@
                             <div class="surfaceThree">选择图片
                                 <input type="file" name="file">
                             </div>
-                            <img class="layui-upload-img" id="mypic" src="" alt="预览图">
+                            <img class="layui-upload-img" id="mypic" th:src="|${blog!=null?blog.img_url:''}|"  alt="预览图">
                             <button type="button" class="layui-btn" id="sub">上传七牛云</button>
                             <input type="text" name="img_url" placeholder="显示回显路径" lay-verify="required" id="imgUrl"
                                    autocomplete="off" class="layui-input"  th:value="${blog!=null}?${blog.img_url}" >
@@ -170,6 +170,14 @@
         form.on('submit(addBlog-button)', function (data,index) {
             var field = data.field; //获取提交的字段
             //提交 Ajax 成功后，关闭当前弹层并重载表格
+            if ($("#content").val()=='') {
+                layer.alert('把md放入表单',{icon: 1});
+                return false;
+            }
+            if ($("#htmlcontent").val()==''){
+                layer.alert('把md放入表单',{icon: 1});
+                return false;
+            }
             $.ajax({
                 url: "/admin/addBlog",
                 dataType: 'text',
@@ -313,7 +321,7 @@
     //需要上传的图片内容 base64格式
     var imgStr = '';
     //七牛云平台 配置的域名
-    var urlHeader = "http://puu1qclkk.bkt.clouddn.com/";
+    var urlHeader = "http://pic.coderzhx.cn/";
     //获取七牛云token
     $($.ajax({
         type: "post",

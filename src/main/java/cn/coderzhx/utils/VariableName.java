@@ -12,5 +12,5 @@ public class VariableName {
     //    七牛存储空间名
     public static final String bucket = "wszhxo";
     //    七牛默认域名
-    public static final String domain = "http:/puu1qclkk.bkt.clouddn.com";
+    public static final String domain = "http://pic.coderzhx.cn";
 }

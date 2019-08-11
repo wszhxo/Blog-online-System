@@ -21,7 +21,6 @@
             <result column="update_time" property="update_time"/>
             <result column="order_no" property="order_no"/>
             <result column="url" property="url"/>
-            <result column="count" property="count"/>
         </association>
     </resultMap>
 
@@ -78,6 +77,15 @@
             </if>
         </where>
     </select>
+    <!--查询文章数量-->
+    <select id="countBlogCategoty" resultType="Integer" parameterType="Integer">
+       select count(category_id) from blog
+        <where>
+            <if test="category_id!=0">
+                and category_id=#{category_id}
+            </if>
+        </where>
+    </select>
     <!--查询文章分类-->
     <select id="listCategory" resultType="BlogCategory">
        SELECT * FROM blog_category
@@ -128,18 +136,22 @@ INSERT INTO blog(summary,content,html_content,img_url,title,create_time,update_t
             <if test="tag_name!=null and tag_name!=''">
                 and tag_name=#{tag_name}
             </if>
-            <if test="blog_id!=null and blog_id!=0">
+            <if test=" blog_id>=0">
                 and blog_id=#{blog_id}
             </if>
         </where>
     </delete>
     <!--添加标签-->
-    <insert id="addTags" parameterType="tags"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="addTags" parameterType="tags"  useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
         insert  into tags(blog_id,tag_name) values(#{blog_id},#{tag_name})
     </insert>
+    <!--添加标签2-->
+    <insert id="addTags2" parameterType="tags" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+        insert  into tags(tag_name) values(#{tag_name})
+    </insert>
     <!--用于设置标签url-->
-    <update id="setTagUrl" parameterType="Integer">
-          UPDATE tags SET url=CONCAT('/blog/tags/',#{id}) WHERE id= #{id};
+    <update id="setTagUrl" >
+          UPDATE tags SET url=CONCAT('/blog/tags/',#{tagName}) WHERE id= #{id};
     </update>
     <!--删除分类-->
     <delete id="delCategory" parameterType="Integer">

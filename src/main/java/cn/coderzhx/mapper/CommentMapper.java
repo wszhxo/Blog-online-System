@@ -15,7 +15,10 @@ import java.util.List;
 @Configuration
 public interface CommentMapper {
     List<Comment> listComment(PageBean pageBean);
-    int countComment();
+    List<Comment> listComment2(PageBean pageBean);
+    int countComment(PageBean pageBean);
     void addLike(Integer id);
     void addComment(Comment comment);
+    void editStatus(Comment comment);
+    void delComment(Integer id);
 }

@@ -63,7 +63,7 @@
             ,tags = othis.find('input[name="tags"]').val()
             ,ids = othis.find('input[name="id"]').val();
             if(!tags.replace(/\s/g, '')) return;
-            if(!ids.replace(/\s/g, '')) return;
+            if(!ids.replace(/\s/g, '')) ids=0;
             $.ajax({
               type: 'get',
               url: '/admin/addTags',
