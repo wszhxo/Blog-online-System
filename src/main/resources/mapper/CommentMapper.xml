@@ -23,7 +23,12 @@
     </if>
     </select>
     <select id="countComment" resultType="Integer" parameterType="cn.coderzhx.pojo.PageBean">
-       select count(id) from comment;
+       select count(id) from comment
+        <where>
+            <if test="qq!=null and qq!=''">
+                and qq=#{qq}
+            </if>
+        </where>
     </select>
     <!--点赞-->
     <update id="addLike" parameterType="Integer">

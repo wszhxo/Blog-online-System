@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">;
+    <title>layuiAdmin 分类管理 iframe 框</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+
+</head>
+<body>
+
+<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-link" style="text-align: center;">
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <div class="layui-card-body layui-row layui-col-space10">
+                <div class="layui-col-md6">
+                    <div class="layui-input-inline">
+                        <select name="type" id="type">
+                            <option value="0">父菜单</option>
+                            <option value="1">子菜单</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-input-inline">
+                        <input type="text" name="pid"  id="tips" placeholder="父菜单id" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-input-inline">
+                        <input type="text" name="name"   placeholder="菜单名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,form = layui.form ;
+        layer.tips('是父菜单时可不填', '#tips', {
+            tips: 3
+        });
+    })
+
+</script>
+</body>
+</html>

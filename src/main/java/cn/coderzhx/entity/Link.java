@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Component
 public class Link implements Serializable {
     private int id;
-    private String isuse;
+    private int isuse=1;
     private String name;
     private int orderno;
     private String create_time;
@@ -25,11 +25,11 @@ public class Link implements Serializable {
         this.id = id;
     }
 
-    public String getIsuse() {
+    public int getIsuse() {
         return isuse;
     }
 
-    public void setIsuse(String isuse) {
+    public void setIsuse(int isuse) {
         this.isuse = isuse;
     }
 

@@ -35,6 +35,17 @@ public class PageBean<T> {
     //留言管理后台搜索条件
     private String qq;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //友情链接搜索条件
+    private String name;
+
     public String getQq() {
         return qq;
     }

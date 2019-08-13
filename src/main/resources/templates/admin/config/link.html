@@ -18,15 +18,9 @@
       <div class="layui-form layui-card-header layuiadmin-card-header-auto">
         <div class="layui-form-item">
           <div class="layui-inline">
-            <label class="layui-form-label">ID</label>
+            <label class="layui-form-label">名字</label>
             <div class="layui-input-inline">
-              <input type="text" name="cid" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">评论者</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
+              <input type="text"  id="nichen" placeholder="请输入" autocomplete="off" class="layui-input">
             </div>
           </div>
           <div class="layui-inline">
@@ -39,8 +33,12 @@
       <div class="layui-card-body">
         <div style="padding-bottom: 10px;">
           <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
+          <button class="layui-btn layuiadmin-btn-comm" data-type="add">添加</button>
         </div>
-        <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>  
+        <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
+        <script type="text/html" id="status">
+          <input type="checkbox" name="isuse" value="{{d.isuse}}" lay-skin="switch" itemid="{{d.id}}" lay-text="已发布|未使用" lay-filter="link_isuse" {{ d.isuse == 1 ? 'checked' : '' }}/>
+        </script>
         <script type="text/html" id="table-content-com">
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
@@ -59,42 +57,167 @@
     var $ = layui.$
     ,form = layui.form
     ,table = layui.table;
-    
-    
+
+
+    table.render({
+      elem: '#LAY-app-content-comm'
+      ,url: '/config/listLink'
+      ,limits: [5,10,15]
+      ,cols: [
+        [
+
+          {type:'checkbox'}
+          ,{field:'id', title:'ID', width:50, sort: true}
+          ,{field:'name', title:'名字', width:200}
+          ,{field:'create_time', title:'创建时间', width:200}
+          ,{field:'url', title:'路径',width: 200,  sort: true,minWidth: 100}
+          ,{field:'orderno', title:'排序', sort: true, width: 100}
+          ,{field:'isuse', title:'是否使用',width: 120,toolbar: '#status'}
+          ,{ title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-content-com' }
+        ]
+      ]
+      , page: true
+      , limit: 7
+      , height: '450'
+      , text: '对不起，加载出现异常！'
+    });
+
     //监听搜索
     form.on('submit(LAY-app-contcomm-search)', function(data){
       var field = data.field;
-      
+      var nichen = $('#nichen');
       //执行重载
       table.reload('LAY-app-content-comm', {
-        where: field
+        method: 'post'
+        ,page: {
+          curr: 1 //重新从第 1 页开始
+        },
+        where: {
+          name: nichen.val(),
+        }
       });
     });
-    
-    //点击事件
-    var active = {
+
+    var $ = layui.$, active = {
+      //批量删除
       batchdel: function(){
         var checkStatus = table.checkStatus('LAY-app-content-comm')
-        ,checkData = checkStatus.data; //得到选中的数据
-
+                ,checkData = checkStatus.data; //得到选中的数据
         if(checkData.length === 0){
           return layer.msg('请选择数据');
         }
-      
         layer.confirm('确定删除吗？', function(index) {
-          
-          //执行 Ajax 后重载
-          /*
-          admin.req({
-            url: 'xxx'
-            //,……
-          });
-          */
-          table.reload('LAY-app-content-comm');
-          layer.msg('已删除');
+          var ids = "";
+          //这里先遍历，然后到后台处理
+          for(var i = 0; i < checkData.length ;i++){
+            ids += checkData[i].id + ",";
+          }
+          $.ajax({
+            type: 'post',
+            url: '/config/batchdelLink/'+ids,
+            success:function (data) {
+              layer.alert('删除成功啦',{icon: 1});
+              table.reload('LAY-app-content-comm');
+              layer.msg('已删除');
+            }})
+
+        });
+      },
+      add: function(){
+        layer.open({
+          type: 2
+          ,title: '添加友链'
+          ,content: ['/config/toaddLinkPage', 'no']
+          ,area: ['450px', '270px']
+          ,btn: ['确定', '取消']
+          ,yes: function(index, layero){
+            var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-link")
+                    ,url = othis.find('input[name="url"]').val()
+                    , name1= othis.find('input[name="name"]').val()
+                    ,orderno = othis.find('input[name="orderno"]').val()
+            if(!url.replace(/\s/g, '')) return;
+            if(!name1.replace(/\s/g, '')) return;
+            if(!orderno.replace(/\s/g, '')) return;
+            $.ajax({
+              type: 'post',
+              url: '/config/addLink',
+              data: {"url":url,"name":name1,"orderno":orderno},
+              success:function (data) {
+                table.reload('LAY-app-content-comm');
+                layer.close(index);
+              }})
+
+
+          }
         });
       }
-    }  
+
+    };
+    //删除按钮事件
+    table.on('tool(LAY-app-content-comm)', function (obj) {
+      var data = obj.data //获得当前行数据
+              , layEvent = obj.event; //获得 lay-event 对应的值
+      if (layEvent === 'del') {  //绑定的事件名称
+        layer.confirm('确定删除该评论吗？', function (index) {
+          obj.del(); //删除对应行（tr）的DOM结构
+          layer.close(index);  //关闭弹框
+          $.ajax({
+            type: 'post',
+            url: '/config/delLink/'+data.id,
+            success:function (data) {
+              layer.alert('删除成功啦',{icon: 1});
+            }})
+        });
+      }else if (layEvent === 'edit') {  //绑定的事件名称
+        layer.open({
+          type: 2
+          ,title: '修改友链'
+          ,content:['/config/toeditLink?url='+data.url+'&name='+data.name+'&orderno='+data.orderno+'&isuse='+data.isuse+'&id='+data.id, 'no']
+          ,data: data.field
+          ,area: ['450px', '270px']
+          ,btn: ['确定', '取消']
+          ,yes: function(index, layero){
+            var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-link")
+                    ,url = othis.find('input[name="url"]').val()
+                    , name1= othis.find('input[name="name"]').val()
+                    ,orderno = othis.find('input[name="orderno"]').val()
+                    ,ids = othis.find('input[name="id"]').val();
+            if(!url.replace(/\s/g, '')) return;
+            if(!name1.replace(/\s/g, '')) return;
+            if(!orderno.replace(/\s/g, '')) return;
+            $.ajax({
+              type: 'post',
+              url: '/config/editLink',
+              data: {"url":url,"name":name1,"orderno":orderno,"id":ids},
+              success:function (data) {
+                table.reload('LAY-app-content-comm');
+                layer.close(index);
+              }})
+
+
+          }
+        });
+      }
+
+    });
+
+
+    function update_useIt(id,useIt){
+      $.post('/config/editIsuse',{id:id,isuse:useIt},function(result){
+        if(result.success){
+          layer.msg('修改成功');
+        }
+      },'json');
+    }
+    //是否显示
+    form.on('switch(link_isuse)', function(obj){
+      var id = $(this).attr('itemid');
+      if(obj.elem.checked){
+        update_useIt(id,1);
+      }else{
+        update_useIt(id,0);
+      }
+    });
 
     $('.layui-btn.layuiadmin-btn-comm').on('click', function(){
       var type = $(this).data('type');

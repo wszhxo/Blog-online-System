@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.coderzhx.mapper.ConfigMapper">
+    <!--网站配置基本信息-->
     <update id="editconfigsiteInfo" parameterType="config">
         UPDATE config SET
         qq=#{qq},
@@ -33,5 +34,148 @@
         weixinpay=#{weixinpay},
         Alipay=#{Alipay}
     </update>
+    <!--添加友链-->
+    <insert id="addLink" parameterType="Link">
+        insert into link(isuse,name,orderno,create_time,url) values (#{isuse},#{name},#{orderno},NOW(),#{url})
+    </insert>
+    <!--更新友链-->
+    <update id="editLink" parameterType="Link">
+        update link
+        set isuse=#{isuse},name=#{name},orderno=#{orderno},url=#{url}
+    where id=#{id}
+    </update>
+    <!--更新友链状态-->
+    <update id="editStatus" parameterType="Link">
+        update link set isuse=#{isuse} where id=#{id}
+    </update>
+    <!--删除友链-->
+    <delete id="delLink" parameterType="Integer">
+        delete from link where id=#{id}
+    </delete>
+    <!--选择友链-->
+    <select id="countLink" parameterType="cn.coderzhx.pojo.PageBean" resultType="Integer">
+         select count(id) from link
+        <if test="currentPage!=null and currentPage!=''">
+            limit #{index},#{pageSize}
+        </if>
+    </select>
+    <!--添加友链-->
+    <select id="listLink" parameterType="cn.coderzhx.pojo.PageBean" resultType="Link">
+        select * from link
+        <where>
+            <if test="name!=null and name!=''">
+                and name like '%${name}%'
+            </if>
+        </where>
+        ORDER BY create_time DESC
+        <if test="currentPage!=null and currentPage!=''">
+            limit #{index},#{pageSize}
+        </if>
+    </select>
+    <!--列出前台菜单-->
+    <select id="listMenu"  resultType="cn.coderzhx.pojo.MenuPojo">
+        select s.id pid, s.name pname ,s.url purl,s.`status` pstatus,s.order_no porderno,p.id cid, p.name cname,p.url curl,p.`status` cstatus,p.order_no corderno
+from menu s left join menu p
+on s.id=p.pid;
+    </select>
+    <!--列出后台菜单-->
+    <select id="listAdminMenu"  resultType="cn.coderzhx.pojo.MenuPojo">
+        select s.id pid, s.name pname ,s.url purl,s.`status` pstatus,s.order_no porderno, p.id cid,p.name cname,p.url curl,p.`status` cstatus,p.order_no corderno
+from menu_admin s left join menu_admin p
+on s.id=p.pid;
+    </select>
+    <!--更新父菜单-->
+    <update id="editMenu1" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu
+        <set>
+        <!--set会自动删除最后的逗号-->
+            <if test="pname!=null">name =#{pname },</if>
+            <if test="purl!=null">url=#{purl},</if>
+            <if test="pstatus!=0">status=#{pstatus},</if>
+            <if test="porderno!=0">orderno=#{porderno},</if>
+        </set>
+        where id=#{pid}
+    </update>
+    <!--更新子菜单-->
+    <update id="editMenu2" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu
+        <set>
+        <!--set会自动删除最后的逗号-->
+            <if test="cname!=null">name=#{cname},</if>
+            <if test="curl!=null">url=#{curl},</if>
+            <if test="cstatus!=0">status=#{cstatus},</if>
+            <if test="corderno!=0">orderno=#{corderno},</if>
+        </set>
+        where id=#{cid}
+    </update>
+    <!--更新父菜单状态-->
+    <update id="editStatus1" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu set status=#{pstatus}
+        where id=#{pid}
+    </update>
+    <!--更新子菜单状态-->
+    <update id="editStatus2" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu set status=#{cstatus}
+        where id=#{cid}
+    </update>
+    <!--删除菜单-->
+    <delete id="delMenu1" parameterType="cn.coderzhx.pojo.MenuPojo">
+        delete from  menu where id=#{pid}
+    </delete>
+    <delete id="delMenu2" parameterType="cn.coderzhx.pojo.MenuPojo">
+        delete from  menu where id=#{cid}
+    </delete>
+    <!--添加菜单-->
+    <insert id="addMenu" parameterType="menu">
+       insert into menu(pid,name) values (#{pid},#{name})
+    </insert>
 
+
+
+
+    <!--更新父菜单-->
+    <update id="editAdminMenu1" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu_admin
+        <set>
+        <!--set会自动删除最后的逗号-->
+            <if test="pname!=null">name =#{pname },</if>
+            <if test="purl!=null">url=#{purl},</if>
+            <if test="pstatus!=0">status=#{pstatus},</if>
+            <if test="porderno!=0">orderno=#{porderno},</if>
+        </set>
+        where id=#{pid}
+    </update>
+    <!--更新子菜单-->
+    <update id="editAdminMenu2" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu_admin
+        <set>
+        <!--set会自动删除最后的逗号-->
+            <if test="cname!=null">name=#{cname},</if>
+            <if test="curl!=null">url=#{curl},</if>
+            <if test="cstatus!=0">status=#{cstatus},</if>
+            <if test="corderno!=0">orderno=#{corderno},</if>
+        </set>
+        where id=#{cid}
+    </update>
+    <!--更新父菜单状态-->
+    <update id="editAdminStatus1" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu_admin set status=#{pstatus}
+        where id=#{pid}
+    </update>
+    <!--更新子菜单状态-->
+    <update id="editAdminStatus2" parameterType="cn.coderzhx.pojo.MenuPojo">
+        update menu_admin set status=#{cstatus}
+        where id=#{cid}
+    </update>
+    <!--删除菜单-->
+    <delete id="delAdminMenu1" parameterType="cn.coderzhx.pojo.MenuPojo">
+        delete from  menu_admin where id=#{pid}
+    </delete>
+    <delete id="delAdminMenu2" parameterType="cn.coderzhx.pojo.MenuPojo">
+        delete from  menu_admin where id=#{cid}
+    </delete>
+    <!--添加菜单-->
+    <insert id="addAdminMenu" parameterType="menu">
+       insert into menu_admin(pid,name) values (#{pid},#{name})
+    </insert>
 </mapper>

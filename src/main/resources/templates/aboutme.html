@@ -46,8 +46,8 @@
         </div>
         <div class="links">
             <h2 class="hometitle">友情链接</h2>
-            <ul th:each="link : ${listLink}">
-                <li><a th:href="|${link.url}|" th:text="${link.name}" target="_blank">优秀个人博客</a></li>
+            <ul >
+                <li th:each="link : ${listLink}"><a th:href="|${link.url}|" th:text="${link.name}" target="_blank">优秀个人博客</a></li>
             </ul>
         </div>
     </div>

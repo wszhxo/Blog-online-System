@@ -13,6 +13,7 @@
     <script src="/js/jquery.easyfader.min.js"></script>
     <script src="/js/scrollReveal.js"></script>
     <script src="/js/common.js"></script>
+    <script src="/js/comm.js"></script>
     <!--[if lt IE 9]>
     <script src="/js/modernizr.js"></script>
     <![endif]-->
@@ -131,12 +132,12 @@
         <div class="guanzhu" id="follow-us">
             <h2 class="hometitle">关注我们 么么哒！</h2>
             <ul>
-                <li class="tencent"><a href="/" target="_blank" th:value="${config.github}"><span>GitHub</span>https://github.com/wszhxo</a>
+                <li class="tencent"><a th:href="|${config.github}|" target="_blank" ><span>GitHub</span><b th:text="${config.github}">https://github.com/wszhxo</b></a>
                 </li>
-                <li class="qq"><a href="/" target="_blank" th:value="${config.qq}"><span>QQ号</span>2500621077</a></li>
-                <li class="email"><a th:href="@{|http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=${config.qq}@qq.com|}" target="_blank" th:value="${config.qq}+'@qq.com'"><span>邮箱帐号</span>cuber.zhx@qq.com</a>
+                <li class="qq"><a href="/" target="_blank" ><span>QQ号</span><b th:text="${config.qq}">2500621077</b></a></li>
+                <li class="email"><a th:href="@{|http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=${config.qq}@qq.com|}" target="_blank" ><span>邮箱帐号</span><b th:text="${config.qq}+'@qq.com'">cuber.zhx@qq.com</b></a>
                 </li>
-                <li class="wxgzh"><a href="/" target="_blank" th:value="${config.wechat}"><span>微信公众号</span></a></li>
+                <li class="wxgzh" ><a href="/" target="_blank" ><span>微信公众号</span><b th:text="${config.wechatgzh}"></b></a></li>
                 <li class="wx"><img alt="张洪祥" th:src="|${config.wechat_icon}|"/></li>
             </ul>
         </div>

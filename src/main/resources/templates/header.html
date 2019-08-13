@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>头部</title>
+    <style>
+        .slideDown {
+            -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -o-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-transition: transform .5s ease-out;
+            -o-transition: transform .5s ease-out;
+            transition: transform .5s ease-out;}
+
+        .slideUp {
+            -webkit-transform: translateY(-100px);
+            -ms-transform: translateY(-100px);
+            -o-transform: translateY(-100px);
+            transform: translateY(-100px);
+            -webkit-transition: transform .5s ease-out;
+            -o-transition: transform .5s ease-out;
+            transition: transform .5s ease-out;}
+    </style>
 </head>
 <body>
-<header  th:fragment="head">
+<header  th:fragment="head" id="header" class="header-navigation">
     <!--menu begin-->
     <div class="menu">
         <nav class="nav" id="topnav">
@@ -19,9 +38,9 @@
                 </li>
             <!--search begin-->
             <div id="search_bar" class="search_bar">
-                <form  id="searchform" action="/search" method="post" name="searchform">
-                    <input class="input" placeholder="想搜点什么呢..." type="text" name="keyword" id="keyboard"/>
-                    <input type="hidden" name="Submit" value="搜索" />
+                <form  id="searchform" action="/search" method="post" name="searchform" onsubmit="if (keyboard.trim().equal('')) return false">
+                    <input class="input" placeholder="按回车搜索" type="text" name="keyword" id="keyboard"/>
+                    <input type="hidden" name="Submit" value="搜索" style="position:absolute;top: 10px;right: 10px;z-index: 100" />
                     <span class="search_ico"></span>
                 </form>
             </div>
@@ -47,6 +66,34 @@
     </div>
     <!--mnav end-->
 </header>
+<script>
+    $(document).ready(function () {
 
+
+        //header
+        var new_scroll_position = 0;
+        var last_scroll_position;
+        var header = document.getElementById("header");
+
+        window.addEventListener('scroll', function(e) {
+            last_scroll_position = window.scrollY;
+
+            if (new_scroll_position < last_scroll_position && last_scroll_position > 80) {
+                header.classList.remove("slideDown");
+                header.classList.add("slideUp");
+
+            } else if (new_scroll_position > last_scroll_position) {
+                header.classList.remove("slideUp");
+                header.classList.add("slideDown");
+            }
+
+            new_scroll_position = last_scroll_position;
+        });
+
+
+
+
+    });
+</script>
 </body>
 </html>

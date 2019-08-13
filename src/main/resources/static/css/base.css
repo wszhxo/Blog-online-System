@@ -4,7 +4,7 @@
 body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #555; background-color: #f6f6f6; line-height: 1.5;  }
 img { border: 0; }
 ul, li { list-style: none; }
-a { text-decoration: none; color: #555 }
+a { text-decoration: none; color: #555 ;transition: .5s}
 a:hover { text-decoration: none; color: #556B2F; }
 .clear { clear: both; }
 .blank { height: 20px; overflow: hidden; width: 100%; margin: auto; clear: both }
@@ -15,7 +15,7 @@ a:hover { text-decoration: none; color: #556B2F; }
 header { width: 100%; background: rgba(255,255,255,1); }
 article { width: 1140px; margin: 100px auto 0; overflow: hidden }
 .tophead { width: 1200px; margin: 0 auto 10px; overflow: hidden; }
-header { position: fixed; top: 0; z-index: 99999 }
+.header-navigation { position: fixed; top: 0; z-index: 99999 }
 .container { width: 1140px; margin: 20px auto }
 /*nav*/
 .logo { float: left; margin-right: 80px; font-size: 26px; }
@@ -24,7 +24,7 @@ header { position: fixed; top: 0; z-index: 99999 }
 .menu { height: 60px; line-height: 60px; width: 100%; background-color: #fff; }
 .nav { height: 60px; width: 1140px; margin: 0 auto; }
 .nav li { float: left; position: relative; }
-.nav li a { color: #bdbdbd; padding: 0 20px; display: inline-block; font-size:18px;transition: .5s}
+.nav li a { color: #8b8b8b; padding: 0 20px; display: inline-block; font-size:18px;transition: .5s}
 .nav li a:hover { color: #6bc30d; padding-top: 5px }
 .nav li .sub-nav { position: absolute; top: 60px; width: 150px; background: #FFF; left: -10px; display: none; box-shadow: 0 0 10px rgba(218,218,218,0.5);}
 .nav li .sub-nav li { clear: left; height: 35px; line-height: 35px; position: relative; width: 200px; padding: 5px 20px ;}

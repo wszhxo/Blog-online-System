@@ -15,7 +15,7 @@ public class Menu implements Serializable {
     private int pid;
     private String name;
     private int orderNo;
-    private int status;
+    private int status=1;
     private String icon	;
     private String url;
     public int getId() {

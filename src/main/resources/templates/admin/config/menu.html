@@ -18,10 +18,18 @@
         <button class="layui-btn layuiadmin-btn-tags" data-type="add">添加</button>
       </div>
       <div class="layui-card-body">    
-        <table id="LAY-app-content-tags" lay-filter="LAY-app-content-tags"></table>  
-        <script type="text/html" id="layuiadmin-app-cont-tagsbar">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
-          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+        <table id="LAY-app-content-tags" lay-filter="LAY-app-content-tags"></table>
+        <script type="text/html" id="pstatus">
+          <input type="checkbox" name="pstatus" value="{{d.pstatus}}" lay-skin="switch" itemid="{{d.pid}}" lay-text="已发布|未使用" lay-filter="plink_isuse" {{ d.pstatus == 1 ? 'checked' : '' }}/>
+        </script>
+        <script type="text/html" id="cstatus">
+          <input type="checkbox" name="cstatus" value="{{d.cstatus}}" lay-skin="switch" itemid="{{d.cid}}" lay-text="已发布|未使用" lay-filter="clink_isuse" {{ d.cstatus == 1 ? 'checked' : '' }}/>
+        </script>
+        <script type="text/html" id="layuiadmin-app-cont-tagsbar1">
+          <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del1"><i class="layui-icon layui-icon-delete"></i>根</a>
+        </script>
+        <script type="text/html" id="layuiadmin-app-cont-tagsbar2">
+          <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del2"><i class="layui-icon layui-icon-delete"></i>叶</a>
         </script>
       </div>
     </div>
@@ -33,30 +41,167 @@
     base: '../../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'contlist', 'table'], function(){
-
+  }).use(['index', 'contlist', 'table','form'], function(){
+      var form = layui.form;
     var table = layui.table;
+    var $ = layui.$;
+
+    table.render({
+      elem: '#LAY-app-content-tags'
+      ,url: '/config/listMenu'
+      ,limits: [5,10,15]
+      ,cols: [
+        [
+          {field:'pid', title:'父ID', width:70, sort: true}
+          ,{field:'pname', title:'父节点名称', width:100,edit:true}
+          ,{field:'purl', title:'菜单URL', width:120,edit:true}
+          ,{field:'pstatus', title:'状态', width: 120,toolbar: '#pstatus',edit:true}
+          ,{field:'porderno', title:'排序', width: 80,edit:true}
+           ,{ title: '操作', width: 150, align: 'center', toolbar: '#layuiadmin-app-cont-tagsbar1' }
+
+          ,{field:'cid', title:'子ID', width:70, sort: true}
+          ,{field:'cname', title:'子节点名称', width:100,edit:true}
+          ,{field:'curl', title:'菜单URL', width:120,edit:true}
+          ,{field:'cstatus', title:'状态', width: 120,toolbar: '#cstatus',edit:true}
+           ,{field:'corderno', title:'排序', width: 80,edit:true}
+          ,{ title: '操作', width: 100, align: 'center', toolbar: '#layuiadmin-app-cont-tagsbar2' }
+        ]
+      ]
+      , height: '500'
+      , text: '对不起，加载出现异常！'
+    });
+
+
+  //添加
     var $ = layui.$, active = {
       add: function(){
         layer.open({
           type: 2
-          ,title: '添加分类'
-          ,content: 'tagsform.html'
-          ,area: ['450px', '200px']
+          ,title: '添加友链'
+          ,content: ['/config/toaddMenuPage', 'no']
+          ,area: ['350px', '280px']
           ,btn: ['确定', '取消']
           ,yes: function(index, layero){
-            var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-tags")
-            ,tags = othis.find('input[name="tags"]').val();
-            
-            if(!tags.replace(/\s/g, '')) return;
-            
-            table.reload('LAY-app-content-tags');
-            layer.close(index);
+            var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-link")
+                    ,type = othis.find('select[name="type"]').val()
+                    , name1= othis.find('input[name="name"]').val()
+                    , pid= othis.find('input[name="pid"]').val();
+            if(!name1.replace(/\s/g, '')) return;
+            if (type=="0"){
+              $.ajax({
+                type: 'post',
+                url: '/config/addMenu',
+                data: {"pid":type,"name":name1},
+                success:function (data) {
+                  table.reload('LAY-app-content-tags');
+                  layer.close(index);
+                }})
+            }else{
+              $.ajax({
+                type: 'post',
+                url: '/config/addMenu',
+                data: {"pid":pid,"name":name1},
+                success:function (data) {
+                  table.reload('LAY-app-content-tags');
+                  layer.close(index);
+                }})
+            }
           }
-        }); 
+        });
       }
-    }  
-    $('.layui-btn.layuiadmin-btn-tags').on('click', function(){
+    };
+    
+    
+    
+    
+      //监听单元格编辑 dataTable 对应 <table> 中的 lay-filter="dataTable"
+      table.on('edit(LAY-app-content-tags)', function(obj){
+          var value = obj.value, //得到修改后的值
+              data = obj.data, //得到所在行所有键值
+              field = obj.field; //得到字段
+          //操作父节点
+          if (field.substring(0,1)=="p") {
+            var data1 = {};
+            data1[field]=value;
+            data1["cid"]=data.cid;
+              $.post('/config/editMenu1',{pid:data.pid,field:value},function(result){
+                  if(result.success){layer.msg('修改成功');}
+              },'json');
+           //操作子节点
+          }else  if (field.substring(0,1)=="c") {
+            var data1 = {};
+            data1[field]=value;
+            data1["cid"]=data.cid;
+              $.post('/config/editMenu2',data1,function(result){
+                  if(result.success){layer.msg('修改成功');}
+              },'json');
+          }
+
+      });
+
+    //删除根菜单
+    table.on('tool(LAY-app-content-tags)', function (obj) {
+      var data = obj.data //获得当前行数据
+              , layEvent = obj.event; //获得 lay-event 对应的值
+      if (layEvent === 'del1') {
+            $.ajax({
+              type: 'post',
+              url: '/config/delMenu1',
+              data: {"pid":data.pid},
+              success:function (data) {
+                layer.msg("删除成功!")
+                table.reload('LAY-app-content-tags');
+              }})
+          }else if (layEvent === 'del2') {
+            $.ajax({
+              type: 'post',
+              url: '/config/delMenu2',
+              data: {"cid":data.cid},
+              success:function (data) {
+                layer.msg("删除成功!")
+                table.reload('LAY-app-content-tags');
+              }})
+          }
+    });
+
+
+
+        //根
+      function update_useIt1(id,useIt){
+          $.post('/config/editStatus1',{pid:id,pstatus:useIt},function(result){
+              if(result.success){
+                  layer.msg('修改成功');
+              }
+          },'json');
+      }
+      //叶
+      function update_useIt2(id,useIt){
+          $.post('/config/editStatus2',{cid:id,cstatus:useIt},function(result){
+              if(result.success){
+                  layer.msg('修改成功');
+              }
+          },'json');
+      }
+      //根是否显示
+      form.on('switch(plink_isuse)', function(obj){
+          var id = $(this).attr('itemid');
+          if(obj.elem.checked){
+              update_useIt1(id,1);
+          }else{
+              update_useIt1(id,0);
+          }
+      });
+      //叶是否显示
+      form.on('switch(clink_isuse)', function(obj){
+          var id = $(this).attr('itemid');
+          if(obj.elem.checked){
+              update_useIt2(id,1);
+          }else{
+              update_useIt2(id,0);
+          }
+      });
+
+      $('.layui-btn.layuiadmin-btn-tags').on('click', function(){
       var type = $(this).data('type');
       active[type] ? active[type].call(this) : '';
     });
