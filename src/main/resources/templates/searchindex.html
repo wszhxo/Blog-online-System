@@ -50,9 +50,9 @@
     <!--blogsbox begin-->
     <div class="blogsbox">
         <div class="blogs" data-scroll-reveal="enter bottom over 1s" th:each="bl : ${listBlogs2}">
-            <h3 class="blogtitle"><a href="/" target="_blank"  th:text="${bl.title}" th:href="@{/blog/}+${bl.id}" >别让这些闹心的套路，毁了你的网页设计!</a></h3>
+            <h3 class="blogtitle"><a href="/" target="_blank"  th:utext="${bl.title}" th:href="@{/blog/}+${bl.id}" >别让这些闹心的套路，毁了你的网页设计!</a></h3>
             <span class="blogpic"><a href="/" title=""><img src="images/toppic01.jpg" th:src="|${bl.img_url}|" th:alt="${bl.title}"></a></span>
-            <p class="blogtext"  th:text="${bl.summary}"></p>
+            <p class="blogtext"  th:utext="${bl.summary}"></p>
             <div class="bloginfo">
                 <ul>
 <!--                    <li class="author"><a href="/" th:text="${config.name}">小张</a></li>-->

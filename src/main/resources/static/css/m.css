@@ -4,7 +4,7 @@ header { width: 100%; margin: auto; }
 .nav { width: 90% }
 .nav li a { padding: 0 15px }
 .search_bar { display: none }
-article { width: 90%; margin: 100px auto 0 }
+article { width: 90%; margin: 100px auto 0;}
 .fader { padding-top: 0; height: 360px }
 .imginfo { bottom: 15% }
 .toppic li i img { height: 170px; }

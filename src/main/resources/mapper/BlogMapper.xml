@@ -26,11 +26,12 @@
 
     <!--列出博客-->
     <select id="listBlogs" resultMap="blogMap" parameterType="cn.coderzhx.pojo.PageBean">
-        select b.*,c.name from blog b  LEFT JOIN blog_category c  ON b.category_id=c.id where b.state=1 order by create_time desc
+        select b.*,c.name from blog b  LEFT JOIN blog_category c  ON b.category_id=c.id  order by create_time desc
         <if test="currentPage!=null and currentPage!=''">
             limit #{index},#{pageSize};
         </if>
     </select>
+
     <!--列出博客通过分类-->
     <select id="listBlogsByCategory" resultMap="blogMap" parameterType="cn.coderzhx.pojo.PageBean">
         select b.*,c.name from blog b  LEFT JOIN blog_category c  ON b.category_id=c.id
@@ -181,4 +182,13 @@ INSERT INTO blog(summary,content,html_content,img_url,title,create_time,update_t
 	category_id=#{category_id}
 	 WHERE id=#{id};
     </update>
+    <!--列出点击最高的5篇文章-->
+    <select id="listHitsBlog" resultMap="blogMap">
+         select b.*,c.name from blog b  LEFT JOIN blog_category c  ON b.category_id=c.id where b.state=1 order by hits desc  LIMIT 4
+    </select>
+    <!--列出时间轴-->
+    <select id="listTime"  resultType="Blog">
+       SELECT id,title,create_time	FROM   `blog` ;
+    </select>
+
 </mapper>

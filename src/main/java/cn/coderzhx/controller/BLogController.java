@@ -34,7 +34,7 @@ public class BLogController {
         //添加点击量
         blogService.addHits(id);
         model.addAttribute("blogById",blogById);
-        model.addAttribute("tags",tags);
+        model.addAttribute("listTags",tags);
         model.addAttribute("beforeBlog",beforeBlog);
         model.addAttribute("afterBlog",afterBlog);
 //        List<Blog> listBlogs= blogIndex.searchBlog(pageBean.getWord());

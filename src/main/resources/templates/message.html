@@ -74,6 +74,14 @@
                 </div>
             </div>
            <!--回复区域 end-->
+               <!--分页start-->
+               <div class="pagelist" th:if="${pageBean}"><a class="allpage"><b th:text="${pageBean.totalCount}">29</b></a>
+                   &nbsp;&nbsp;<a th:href="@{|/message?currentPage=0&pageSize=${pageBean.pageSize}|}"class="curPage">首页</a>&nbsp;&nbsp;
+                   &nbsp;<a  th:href="@{|/message?currentPage=${pageBean.currentPage-1}&pageSize=${pageBean.pageSize}|}">上一页</a>
+                   &nbsp;<a  th:href="@{|/message?currentPage=${pageBean.currentPage+1}&pageSize=${pageBean.pageSize}|}">下一页</a>
+                   &nbsp;<a  th:href="@{|/message?currentPage=${pageBean.totalPage}&pageSize=${pageBean.pageSize}|}">尾页</a>
+
+               </div>
             </div>
         </ul>
     </div>

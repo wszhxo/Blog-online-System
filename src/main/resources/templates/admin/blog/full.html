@@ -105,6 +105,7 @@
                         <label class="layui-form-label">状态:</label>
                         <input type="radio" name="state" value="1" title="发布" th:checked="${blog!=null}?${blog.state==1}"><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon layui-anim-scaleSpring"></i><div>发布</div></div>
                         <input type="radio" name="state" value="0" title="草稿" th:checked="${blog!=null}?${blog.state==0}"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>草稿</div></div>
+                        <input type="radio" name="state" value="2" title="轮播" th:checked="${blog!=null}?${blog.state==2}"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>轮播</div></div>
                     </div>
                 </div>
                 <div class="layui-form-item">

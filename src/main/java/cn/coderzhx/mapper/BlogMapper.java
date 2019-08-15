@@ -42,4 +42,10 @@ public interface BlogMapper {
     void editCategory(BlogCategory blogCategory);
     int countBlogCategoty(@Param("category_id") int category_id);
 
+
+//5篇点击最高的
+    List<Blog> listHitsBlog();
+//时间轴
+    List<Blog> listTime();
+
 }

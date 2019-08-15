@@ -85,7 +85,6 @@ public class AdminBlogController {
     //添加文章
     @GetMapping("/addBlog")
     public String  listBlog(@RequestParam(value = "tags") String[] tags,Blog blog) throws Exception {
-        blog.setImg_url(blog.getImg_url()+"?imageView/1/w/200/h/200");
         //获取id用于标签添加，只要getId就好了
         blogService.addBlog(blog);
         //添加文章索引

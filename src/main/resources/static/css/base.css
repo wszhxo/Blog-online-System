@@ -1,7 +1,11 @@
 @charset "gb2312";
 /* css */
 * { margin: 0; padding: 0 }
-body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #555; background-color: #f6f6f6; line-height: 1.5;  }
+body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #555;  line-height: 1.5;  background-repeat:no-repeat ;
+background-image: url("http://pic.coderzhx.cn/FrB7CWY-AYzNT5uqUQm2oisPBNWb");
+    background-size:100% 100%;
+
+    background-attachment: fixed;}
 img { border: 0; }
 ul, li { list-style: none; }
 a { text-decoration: none; color: #555 ;transition: .5s}
@@ -13,23 +17,23 @@ a:hover { text-decoration: none; color: #556B2F; }
 .f_r { float: right }
 .mt20 { margin-top: 20px }
 header { width: 100%; background: rgba(255,255,255,1); }
-article { width: 1140px; margin: 100px auto 0; overflow: hidden }
+article { width: 1140px; margin: 100px auto 0; overflow: hidden;opacity: 0.9;  }
 .tophead { width: 1200px; margin: 0 auto 10px; overflow: hidden; }
-.header-navigation { position: fixed; top: 0; z-index: 99999 }
-.container { width: 1140px; margin: 20px auto }
+.header-navigation { position: fixed; top: 0; z-index: 99999 ;opacity: 0.9; }
+.container { width: 1140px; margin: 20px auto;opacity: 0.9; }
 /*nav*/
 .logo { float: left; margin-right: 80px; font-size: 26px; }
-.logo a { color: #6bc30d ;transition: .5s; }
-/*.logo a:hover { color: #6bc30d ;}*/
+.logo a { color: #68a6d6 ;transition: .5s; }
+/*.logo a:hover { color: #68a6d6 ;}*/
 .menu { height: 60px; line-height: 60px; width: 100%; background-color: #fff; }
 .nav { height: 60px; width: 1140px; margin: 0 auto; }
 .nav li { float: left; position: relative; }
 .nav li a { color: #8b8b8b; padding: 0 20px; display: inline-block; font-size:18px;transition: .5s}
-.nav li a:hover { color: #6bc30d; padding-top: 5px }
+.nav li a:hover { color: #68a6d6; padding-top: 5px }
 .nav li .sub-nav { position: absolute; top: 60px; width: 150px; background: #FFF; left: -10px; display: none; box-shadow: 0 0 10px rgba(218,218,218,0.5);}
 .nav li .sub-nav li { clear: left; height: 35px; line-height: 35px; position: relative; width: 200px; padding: 5px 20px ;}
 .nav li .sub-nav li a { font-size: 15px; font-weight: 400;  color: #404040; line-height: 28px; transition: .5s}
-.nav li .sub-nav li a:hover { color: #6bc30d; margin-left: 10px; }
+.nav li .sub-nav li a:hover { color: #68a6d6; margin-left: 10px; }
 
 /*search*/
 .search_bar { position: relative; margin-top: 10px; width: 0%; min-width: 60px; height: 60px; float: right; overflow: hidden; -webkit-transition: width 0.3s; -moz-transition: width 0.3s; transition: width 0.3s; -webkit-backface-visibility: hidden; }
@@ -40,7 +44,7 @@ article { width: 1140px; margin: 100px auto 0; overflow: hidden }
 #show { position: absolute; padding: 20px }
 /*phone  nav */
 #mnav { display: none; width: 100%; position: fixed; top: 0; right: 0; }
-.mlogo { color: #6bc30d; line-height: 50px; font-size: 22px; float: left; padding-left: 20px }
+.mlogo { color: #68a6d6; line-height: 50px; font-size: 22px; float: left; padding-left: 20px }
 #mnav h2 { text-align: right; color: #fff; font-size: 18px; height: 50px; line-height: 40px; width: 100%; background: rgba(0,0,0,1) }
 #mnav h2.open { text-align: right; width: 100%; }
 #mnav dl { display: none; background: #000; width: 100%; padding-bottom: 40px }

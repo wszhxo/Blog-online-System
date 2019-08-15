@@ -52,7 +52,7 @@
 }
 
 #md_html hr {
-    border: 1px solid #BF360C;
+    border: 1px solid #555;
     margin: 1.5em auto;
 }
 
@@ -123,12 +123,10 @@
 }
 
 #md_html h1, #md_html h2, #md_html h3, #md_html h4, #md_html h5, #md_html h6 {
-    margin: 20px 0 10px;
     padding: 0;
     font-style: bold !important;
-    color: #6f5a40 !important;
+    color: #555 !important;
     text-align: center !important;
-    margin: 1.5em 5px !important;
     padding: 0.5em 1em !important;
 }
 

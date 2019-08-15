@@ -29,10 +29,10 @@
 <body>
 <!--引入头部-->
 <div th:replace="header :: head"></div>
-<article>
-  <h1 class="t_nav"><span>您现在的位置是：首页 > 慢生活 > 程序人生</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">慢生活</a></h1>
+<article  style="opacity: 1">
+  <h1 class="t_nav"><span>一个在编程路上逐渐变强的男人</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">慢生活</a></h1>
   <div class="infosbox">
-    <div class="newsview">
+    <div class="newsview"  >
       <h3 class="news_title" th:text="${blogById.title}">个人博客，属于我的小世界！</h3>
       <div class="bloginfo">
         <ul>
@@ -130,27 +130,14 @@
       </ul>
     </div>
   </div>
-  <div class="sidebar">
+  <div class="sidebar"  style="opacity: 0.9">
 
     <div class="tuijian">
       <h2 class="hometitle">点击排行</h2>
-      <ul class="tjpic">
-        <i><img src="images/toppic01.jpg"></i>
-        <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-      </ul>
       <ul class="sidenews">
-        <li> <i><img src="images/toppic01.jpg"></i>
-          <p><a href="/">别让这些闹心的套路</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/toppic02.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/v1.jpg"></i>
-          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/v2.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
+        <li th:each="list : ${listHitsBlog}"><i><img th:src="|${list.img_url}|" src="images/v2.jpg"></i>
+          <p><a href="/" th:href="@{/blog/}+${list.id}" th:text="${list.title}">给我模板PSD源文件，我给你设计HTML！</a></p>
+          <span th:text="${#strings.substring(list.create_time,0,10)}">2018-05-13</span></li>
       </ul>
     </div>
     <div class="cloud">

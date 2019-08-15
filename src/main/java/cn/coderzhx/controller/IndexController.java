@@ -1,11 +1,10 @@
 package cn.coderzhx.controller;
 
-import cn.coderzhx.entity.Blog;
-import cn.coderzhx.entity.Config;
-import cn.coderzhx.entity.Link;
-import cn.coderzhx.entity.Menu;
+import cn.coderzhx.entity.*;
 import cn.coderzhx.mapper.BlogMapper;
+import cn.coderzhx.mapper.IndexMapper;
 import cn.coderzhx.pojo.PageBean;
+import cn.coderzhx.pojo.Visit;
 import cn.coderzhx.service.BlogService;
 import cn.coderzhx.service.CommentService;
 import cn.coderzhx.utils.BlogIndex;
@@ -14,14 +13,16 @@ import cn.coderzhx.utils.IpUtils;
 import cn.coderzhx.utils.VerifyCodeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author zhx
@@ -34,6 +35,8 @@ public class IndexController {
     @Resource
     BlogMapper blogMapper;
     @Resource
+    IndexMapper indexMapper;
+    @Resource
     private CommentService commentService;
     @Resource
     private IndexUtils indexUtils;
@@ -41,23 +44,44 @@ public class IndexController {
     @RequestMapping("/")
     public String index( PageBean pageBean,Model model,HttpServletRequest request) throws Exception {
         String ipAddress = IpUtils.getIpAddr(request);
-        System.out.println(ipAddress);
-        System.out.println(IpUtils.getRequestBrowserInfo(request));
-         PageBean blogList= blogService.listBlogs(pageBean);
+        //访问网站如果是同一个ip，如果数据库有,就让该ip访问次数+1，
+        List<VisitCount> listVisit=IndexUtils.visitCountMap;
+        Map<String,VisitCount> map=new HashMap<>();
+        for (VisitCount visitCount : listVisit) {
+            map.put(visitCount.getIp(),visitCount);
+        }
+        if(map.containsKey(ipAddress)){
+            indexMapper.addipCount(ipAddress);
+        }else{
+           //此ip没有就创建新的Map，看情况统一添加
+            VisitCount visitCount=new VisitCount();
+            visitCount.setIp(ipAddress);
+            visitCount.setReqcount(1);
+            visitCount.setBrowser(IpUtils.getRequestBrowserInfo(request));
+            IndexUtils.newvisitCount.add(visitCount);
+            //由于此时我还没有刷新缓存，已经访问过的ip还没加入数据库有可能总是第一次
+            listVisit.add(visitCount);
+        }
+        Visit totalcount = IndexUtils.totalcount;
+        PageBean blogList= blogService.listBlogs(pageBean);
+         model.addAttribute("totalcount",totalcount);
          model.addAttribute("pageBean",blogList);
          model.addAttribute("listTags",blogService.listTags(0));
        showMenu(model);
         return "index";
     }
-
+    //lunece搜索
     @RequestMapping("/search")
     public String search(@RequestParam("keyword") String keyword,
                         Model model) throws Exception {
         List<Blog> listBlogs= new BlogIndex().searchBlog(keyword);
         List<Blog> listBlogs2=new ArrayList<>();
         for (Blog listBlog : listBlogs) {
-            listBlog = blogService.findBlogById(listBlog.getId());
-            listBlogs2.add(listBlog);
+            Blog blog=new Blog();
+            blog = blogService.findBlogById(listBlog.getId());
+            blog.setTitle(listBlog.getTitle());
+            blog.setSummary(listBlog.getSummary());
+            listBlogs2.add(blog);
         }
         model.addAttribute("listBlogs2",listBlogs2);
        showMenu(model);
@@ -75,13 +99,14 @@ public class IndexController {
     //关于我
     @RequestMapping("/aboutme")
     public String aboutme(Model model){
-
         showMenu(model);
         return "aboutme";
     }
     //时间轴
     @RequestMapping("/time")
     public String time(Model model){
+        List<Blog> blogs = blogMapper.listTime();
+        model.addAttribute("blogs",blogs);
         showMenu(model);
         return "time";
     }
@@ -118,7 +143,10 @@ public class IndexController {
         final Config config=IndexUtils.configList;
         //友情链接
         final List<Link> listLink=IndexUtils.listLink;
+        //点击排行5篇
+        final List<Blog> listHitsBlog=IndexUtils.listHitsBlog;
 
+         model.addAttribute("listHitsBlog",listHitsBlog);
          model.addAttribute("listMenu",menuList);
          model.addAttribute("config",config);
          model.addAttribute("listLink",listLink);

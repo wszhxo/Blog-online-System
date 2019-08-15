@@ -33,6 +33,7 @@ public class CommentServiceImpl implements CommentService {
         pageBean.setIndex(pageBean2.getIndex());
         pageBean.setTotalCount(pageBean2.getTotalCount());
         pageBean.setTotalPage(pageBean2.getTotalPage());
+        pageBean.setCurrentPage(pageBean2.getCurrentPage());
         pageBean.setList(commentMapper.listComment2(pageBean));
         return pageBean;
     }

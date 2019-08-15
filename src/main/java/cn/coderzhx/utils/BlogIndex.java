@@ -134,7 +134,7 @@ import java.util.List;
             //把得分高的片段摘要出来
 
             //格式化前缀和后缀
-            SimpleHTMLFormatter simpleHTMLFormatter=new SimpleHTMLFormatter("<b><font color='red'>", "</font></b>");
+            SimpleHTMLFormatter simpleHTMLFormatter=new SimpleHTMLFormatter("<b><font color='#ff7500'>", "</font></b>");
             //格式化前缀和后缀
 
             Highlighter highlighter=new Highlighter(simpleHTMLFormatter, scorer);

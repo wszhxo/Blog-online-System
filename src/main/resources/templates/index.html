@@ -49,8 +49,7 @@
     <div class="picsbox">
         <div class="banner">
             <div id="banner" class="fader">
-                <li class="slide"><a href="/" target="_blank"><img  src="/images/banner01.jpg"><span class="imginfo">别让这些闹心的套路，毁了你的网页设计!</span></a>
-                </li>
+                <li th:each="b : ${pageBean.getList()}" th:if="${b.state==2}" class="slide"  ><a  th:href="@{/blog/}+${b.id}" target="_blank"><img   th:src="|${b.img_url}?imageView/1/w/800/h/500|" th:alt="${b.title}" src="/images/banner01.jpg"><span class="imginfo" th:text="${b.title}">别让这些闹心的套路，毁了你的网页设计!</span></a></li>
                 <div class="fader_controls">
                     <div class="page prev" data-target="prev">&lsaquo;</div>
                     <div class="page next" data-target="next">&rsaquo;</div>
@@ -66,19 +65,20 @@
                 <p class="abname" th:text="${config.username}+' | '+${config.name}"></p>
                 <p class="abposition" th:text="${config.job}"></p>
                 <p class="abtext" th:text="${config.summary}"></p>
-                <p class="abname" >sjdkla
-                    aaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaae</p>
+                <p class="abname" th:text="'访问人数:'+${totalcount.countip}"></p>
+                <p class="abname" th:text="总浏览量+${totalcount.totalcount}"></p>
+                <p class="abname" th:text="文章总数+${pageBean.totalCount}"></p>
+                <p class="abname" th:text="建站时间+${#strings.substring(config.create_time,0,10)}"></p>
+
             </div>
         </div>
     </div>
     <div class="blank"></div>
     <!--blogsbox begin-->
     <div class="blogsbox">
-        <div class="blogs" data-scroll-reveal="enter bottom over 1s" th:each="bl : ${pageBean.getList()}">
+        <div class="blogs" data-scroll-reveal="enter bottom over 1s" th:each="bl : ${pageBean.getList()}" th:if="${bl.state==1}">
             <h3 class="blogtitle"><a href="/" target="_blank"  th:text="${bl.title}" th:href="@{/blog/}+${bl.id}" >别让这些闹心的套路，毁了你的网页设计!</a></h3>
-            <span class="blogpic"><a href="/" title=""><img src="images/toppic01.jpg" th:src="|${bl.img_url}|" th:alt="${bl.title}"></a></span>
+            <span class="blogpic"><a href="/" title=""><img src="images/toppic01.jpg" th:src="|${bl.img_url}?imageView/1/w/200/h/200|" th:alt="${bl.title}"></a></span>
             <p class="blogtext"  th:text="${bl.summary}"></p>
             <div class="bloginfo">
                 <ul>
@@ -93,9 +93,9 @@
         <!--分页start-->
         <div class="pagelist" th:if="${pageBean}"><a class="allpage"><b th:text="${pageBean.totalCount}">29</b></a>
             &nbsp;&nbsp;<a th:href="@{|/?currentPage=0&pageSize=${pageBean.pageSize}|}"class="curPage">首页</a>&nbsp;&nbsp;
-            &nbsp;<a href="#" onclick="page(2)">上一页</a>
-            &nbsp;<a href="#" onclick="page(2)">下一页</a>
-            &nbsp;<a href="#" onclick="page(2)">尾页</a>
+            &nbsp;<a  th:href="@{|/?currentPage=${pageBean.currentPage-1}&pageSize=${pageBean.pageSize}|}">上一页</a>
+            &nbsp;<a  th:href="@{|/?currentPage=${pageBean.currentPage+1}&pageSize=${pageBean.pageSize}|}">下一页</a>
+            &nbsp;<a  th:href="@{|/?currentPage=${pageBean.totalPage}&pageSize=${pageBean.pageSize}|}">尾页</a>
 
         </div>
         <!--分页end-->
@@ -104,23 +104,14 @@
     <div class="sidebar">
         <div class="tuijian">
             <h2 class="hometitle">点击排行</h2>
-            <ul class="tjpic">
-                <i><img src="images/toppic01.jpg"></i>
-                <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-            </ul>
+<!--            <ul class="tjpic">-->
+            <!--                <i><img src="images/toppic01.jpg"></i>-->
+            <!--                <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>-->
+            <!--            </ul>-->
             <ul class="sidenews">
-                <li><i><img src="images/toppic01.jpg"></i>
-                    <p><a href="/">别让这些闹心的套路</a></p>
-                    <span>2018-05-13</span></li>
-                <li><i><img src="images/toppic02.jpg"></i>
-                    <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-                    <span>2018-05-13</span></li>
-                <li><i><img src="images/v1.jpg"></i>
-                    <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-                    <span>2018-05-13</span></li>
-                <li><i><img src="images/v2.jpg"></i>
-                    <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-                    <span>2018-05-13</span></li>
+                <li th:each="list : ${listHitsBlog}"><i><img th:src="|${list.img_url}|" src="images/v2.jpg"></i>
+                    <p><a href="/" th:href="@{/blog/}+${list.id}" th:text="${list.title}">给我模板PSD源文件，我给你设计HTML！</a></p>
+                    <span th:text="${#strings.substring(list.create_time,0,10)}">2018-05-13</span></li>
             </ul>
         </div>
         <div class="cloud">

@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.coderzhx.mapper.IndexMapper">
+    <!--列出前台菜单-->
+
+
+
+
     <select id="listMenu" resultType="Menu">
        select id,pid,name,order_no as 'orderNo',status,icon,url from menu where status=1 ORDER BY orderNo;
     </select>
+    <!--列出后台菜单-->
     <select id="listAdminMenu" resultType="Menu">
        select id,pid,name,order_no as 'orderNo',status,icon,url from menu_admin where status=1 ORDER BY orderNo;
     </select>
+    <!--列出基本配置-->
     <select id="listConfig" resultType="Config">
        select * from config;
     </select>
+    <!--列出友情链接-->
     <select id="listLink" resultType="Link">
        select * from link where isuse= 1 ORDER BY orderno ;
     </select>
+    <!--列出访问统计-->
+    <select id="listVisit" resultType="VisitCount">
+       select * from visitcount  ;
+    </select>
+    <!--列出访问统计-->
+    <select id="listTotal" resultType="cn.coderzhx.pojo.Visit">
+        select count(ip) as 'countip' ,sum(reqcount) as 'totalcount' from visitcount
+    </select>
+    <!--添加访问次数-->
+    <update id="addipCount" parameterType="String">
+        update visitcount set reqcount=reqcount+1 where ip=#{ipAddress}
+    </update>
+    <!--添加新访问-->
+    <insert id="addNewVisit" parameterType="VisitCount">
+        insert into visitcount(ip,reqtime,reqcount,browser) values (#{ip},NOW(),#{reqcount},#{browser})
+    </insert>
 
 </mapper>

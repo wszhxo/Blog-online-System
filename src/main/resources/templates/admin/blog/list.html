@@ -46,10 +46,12 @@
         </div>
         <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table> 
         <script type="text/html" id="state">
-          {{#  if(d.state){ }}
+          {{#  if(d.state==1){ }}
             <button class="layui-btn layui-btn-sm">已发布</button>
-          {{#  } else { }}
+          {{#  } else if(d.state==0){ }}
             <button class="layui-btn layui-btn-primary layui-btn-sm">草稿</button>
+          {{#  } else if(d.state==2){ }}
+            <button class="layui-btn  layui-btn-sm">轮播</button>
           {{#  } }}
         </script>
         <div id="testDiv"></div>
@@ -113,7 +115,7 @@
         ,{field:'title', title:'标题', width:120}
         ,{field:'name', title:'分类', width: 110}
         ,{field:'img_url', title:'封面', width:100,templet: function(d){
-            return '<a class="layer-photos-demo"><img src='+d.img_url+'/></a>';
+            return '<a class="layer-photos-demo"><img src='+d.img_url+'?imageView/1/w/170/h/170'+'/></a>';
           }}
         ,{field:'create_time', title:'创建时间',width: 120,  sort: true,minWidth: 100}
         ,{field:'update_time', title:'更新时间',width: 120, sort: true}

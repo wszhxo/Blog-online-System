@@ -3,7 +3,10 @@ package cn.coderzhx.mapper;
 import cn.coderzhx.entity.Config;
 import cn.coderzhx.entity.Link;
 import cn.coderzhx.entity.Menu;
+import cn.coderzhx.entity.VisitCount;
+import cn.coderzhx.pojo.Visit;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -19,4 +22,11 @@ public interface IndexMapper {
     List<Menu> listAdminMenu();
     Config listConfig();
     List<Link> listLink();
+    List<VisitCount> listVisit();
+    //访问人数
+    Visit listTotal();
+
+    void addipCount(@Param("ipAddress") String ipAddress);
+    void addNewVisit(VisitCount visitCount);
+    void totalcount(VisitCount visitCount);
 }

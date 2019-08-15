@@ -2,7 +2,7 @@
 .picsbox { width: 100%; overflow: hidden; position: relative; }
 /*banner*/
 .banner { width: 74%; overflow: hidden; float: left }
-.fader { position: relative; width: 100%; padding-top: 60%; font-family: "futura", arial; overflow: hidden; }
+.fader { position: relative; width: 100%;padding-top: 50%; font-family: "futura", arial; overflow: hidden; }
 .fader .slide { position: absolute; width: 100%; top: 0; z-index: 1; opacity: 0; height: 100%; }
 .fader .slide img { width: 100%; height: 100%; }
 .fader .prev, .fader .next { position: absolute; height: 80px; line-height: 55px; width: 50px; font-size: 100px; text-align: center; color: #fff; top: 50%; left: 50px; z-index: 4; margin-top: -25px; cursor: pointer; opacity: 0; transition: all 150ms; }
@@ -32,7 +32,7 @@
 .blogs .blogpic img { width: 100%; height: auto; -webkit-transition: all 0.6s ease; -moz-transition: all 0.6s ease; -o-transition: all 0.6s ease; transition: all 0.6s ease; margin-bottom: 10px }
 .blogs .blogpic :hover img { transform: scale(1.1) }
 .blogs .blogtitle { margin: 0 0 10px 0; font-size: 20px; overflow: hidden; }
-.blogs .blogtitle a:hover { color: #6bc30d; }
+.blogs .blogtitle a:hover { color: #68a6d6; }
 .blogs .blogtext { font-size: 16px; color: #566573; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; margin-top: 20px }
 .bloginfo { overflow: hidden; margin-top: 30px }
 .bloginfo ul li { float: left; font-size: 16px; padding: 0 0 0 20px; margin: 0 15px 0 0; color: #748594; line-height: 1.5; display: inline-block; }
@@ -84,7 +84,7 @@
 .sidenews li { margin: 0 0 20px 0; overflow: hidden }
 .sidenews li p { line-height: 24px; color: #888; font-size: 15px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; }
 .sidenews li a { color: #48494d; }
-.sidenews li a:hover { color: #6bc30d; }
+.sidenews li a:hover { color: #68a6d6; }
 .sidenews i { width: 100px; height: 75px; overflow: hidden; display: block; border: #efefef 1px solid; float: left; margin-right: 10px }
 .sidenews img { height: 100%; max-height: 75px; margin: auto; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; transition: all 0.5s; }
 .sidenews li:hover i img { transform: scale(1.1) }
@@ -136,7 +136,7 @@ h1.t_nav span { float: right; color: #000; }
 h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: normal; line-height: 40px; width: 100%; overflow: hidden; margin-bottom: 20px }
 .n1, .n2 { width: 100px; display: block; text-align: center; float: left; color: #fff; }
 .n1 { background: #000; }
-.n2 { background: #6bc30d; }
+.n2 { background: #68a6d6; }
 .sidebar .about { background: #FFF url(../images/banner.png) no-repeat top center; overflow: hidden; }
 .avatar { margin: 40px auto 20px; width: 100px }
 .avatar img { width: 100px; border-radius: 50% }
@@ -145,11 +145,11 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 .abtext { padding: 20px 20px; color: #999; line-height: 26px; text-align: justify; }
 .weixin img { width: 100% }
 /*pagebg*/
-.pagebg { margin-top: 80px; padding: 100px 0; text-align: center; width: 100%; }
+.pagebg { margin-top: 80px;  text-align: center; width: 100%; }
 /*pagebg.pagebg p { font-size: 36px; color: #FFF; }*/
-.ab { background: url(../images/blank.jpg) no-repeat; background-size: cover; background-position: top center; }
-.sh { background: url(../images/page_bg.jpg) no-repeat; background-size: cover; background-position: top center; }
-.timer { background: url(../images/page_time.jpg) no-repeat; background-size: cover; background-position: top center; }
+/*.ab { background: url(../images/blank.jpg) no-repeat; background-size: cover; background-position: top center; }*/
+/*.sh { background: url(../images/page_bg.jpg) no-repeat; background-size: cover; background-position: top center; }*/
+/*.timer { background: url(../images/page_time.jpg) no-repeat; background-size: cover; background-position: top center; }*/
 /*share*/
 .share { overflow: hidden; padding-top: 10px }
 .shareli { margin: 0 15px; padding-bottom: 10px }
@@ -164,7 +164,7 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 .timebox { position: relative; overflow: hidden }
 .timebox li { overflow: hidden; font-size: 16px; margin: 10px 0; line-height: 44px; }
 .timebox li a { background: #FFF; display: block; float: left; padding: 0 30px; position: relative; -webkit-box-shadow: 0 5px 10px 0 rgba(146, 146, 146, .1); -moz-box-shadow: 0 5px 10px 0 rgba(146, 146, 146, .1); box-shadow: 0 5px 10px 0 rgba(146, 146, 146, .1); -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; }
-.timebox li span { margin-right: 90px; display: block; float: left; background: #f7f7f7; height: 44px; color: #999; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; }
+.timebox li span { margin-right: 90px; display: block; float: left; height: 44px; color: #555; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; }
 .timebox:before { content: ''; position: absolute; top: 0; bottom: 0; width: 3px; background: #ccc; left: 141px; margin-left: -10px; }
 .timebox li a:before { right: 100%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; border-right-color: #fff; border-width: 10px; top: 10px; }
 .timebox li a:after { right: 100%; /* border: solid transparent; */ content: " "; height: 5px; width: 5px; border: 2px solid #cccaca; background: #8e9baf; position: absolute; top: 16px; left: -51px; border-radius: 50%; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; }
@@ -174,7 +174,7 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 .timebox li:hover span { color: #000 }
 /*infosbox*/
 .infosbox { float: left; width: 73%; overflow: hidden; background: #FFF; }
-.newsview { padding: 0 30px }
+.newsview { padding: 0 30px ;}
 .intitle { line-height: 40px; height: 40px; font-size: 14px; ; border-bottom: #000 2px solid; }
 .intitle a { font-weight: normal; }
 .news_title { font-size: 24px; font-weight: normal; padding: 30px 0 0 0; color: #333; }
@@ -197,7 +197,7 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 .nextinfo { line-height: 24px; width: 100%; background: #FFF; border-radius: 10px; overflow: hidden; margin: 20px 0 }
 .nextinfo p { padding: 4px 10px; border-radius: 5px; }
 .nextinfo a:hover { color: #000; text-decoration: underline }
-.diggit { float:left; width: 140px; margin: auto; background: #6bc30d url(../images/dzbg.png) no-repeat center left 10px; color: #fff; box-shadow: 1px 2px 6px 0px rgba(0,0,0,.2); border-radius: 3px; line-height: 40px; text-align: center; padding-left: 20px;margin-left: 20%; }
+.diggit { float:left; width: 140px; margin: auto; background: #68a6d6 url(../images/dzbg.png) no-repeat center left 10px; color: #fff; box-shadow: 1px 2px 6px 0px rgba(0,0,0,.2); border-radius: 3px; line-height: 40px; text-align: center; padding-left: 20px;margin-left: 20%; }
 .diggit a { color: #fff; }
 #diggnum { margin: 5px; }
 .otherlink, .xzsm, .ffsm { width: 100%; background: #FFF; border-radius: 10px; overflow: hidden; margin: 20px 0 }
@@ -225,7 +225,7 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 .meandblog li { background: #f1f1f1; line-height: 30px; margin: 5px 0; padding: 0 0 0 10px; border-radius: 10px; border-top: 2px solid #e2e2e2; text-shadow: #eae7e7 0px 0px 1px; }
 .meandblog li a:hover { color: #000 }
 /*money*/
-.dasbox{ width:130px; float:left; margin-left:40px;background: url(../images/dsbz.png) no-repeat left 20px center #6bc30d ;
+.dasbox{ width:130px; float:left; margin-left:40px;background: url(../images/dsbz.png) no-repeat left 20px center #68a6d6 ;
     
     box-shadow: 1px 2px 6px 0px rgba(0,0,0,.2);
     border-radius: 3px;
@@ -251,7 +251,7 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 
  #tagscloud{height:150px;position:relative;font-size:16px;text-align:center;}
  #tagscloud a{position:absolute;top:0px;left:0px;color:#333;font-family:Arial;text-decoration:none;text-align:center;font-size:16px;padding:1px 3px;display:inline-block;border-radius:3px;}
- #tagscloud a.tagc1{background:#6bc30d ;color:#fff;}
- #tagscloud a.tagc2{background:#6bc30d ;color:#fff;}
- #tagscloud a.tagc5{background:#6bc30d ;color:#fff;}
- #tagscloud a:hover{color:#fff;background:#6bc30d ;}
+ #tagscloud a.tagc1{background:#68a6d6 ;color:#fff;}
+ #tagscloud a.tagc2{background:#68a6d6 ;color:#fff;}
+ #tagscloud a.tagc5{background:#68a6d6 ;color:#fff;}
+ #tagscloud a:hover{color:#fff;background:#68a6d6 ;}

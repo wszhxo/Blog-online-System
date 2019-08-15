@@ -112,7 +112,7 @@ public class PageBean<T> {
         }
 
         if (this.pageSize == null) {
-            // 如果每页显示条数没有指定,默认每页显示3条
+            // 如果每页显示条数没有指定,默认每页显示8条
             this.pageSize = 8;
         }
 
