@@ -3,6 +3,7 @@ package cn.coderzhx.controller;
 import cn.coderzhx.entity.*;
 import cn.coderzhx.mapper.BlogMapper;
 import cn.coderzhx.mapper.IndexMapper;
+import cn.coderzhx.mapper.ShareMapper;
 import cn.coderzhx.pojo.PageBean;
 import cn.coderzhx.pojo.Visit;
 import cn.coderzhx.service.BlogService;
@@ -22,7 +23,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhx
@@ -36,6 +40,8 @@ public class IndexController {
     BlogMapper blogMapper;
     @Resource
     IndexMapper indexMapper;
+    @Resource
+    ShareMapper shareMapper;
     @Resource
     private CommentService commentService;
     @Resource
@@ -88,13 +94,25 @@ public class IndexController {
         return "searchindex";
     }
 
-    //关于我
+    //留言
     @RequestMapping("/message")
     public String message(Model model,PageBean pageBean2){
         PageBean commentList=commentService.listComment2(pageBean2);
         model.addAttribute("commentList",commentList);
         showMenu(model);
         return "message";
+    }
+    //资源分享
+    @RequestMapping("/share")
+    public String share(Model model){
+        List<Share> list=shareMapper.listResource();
+        model.addAttribute("listShare",list);
+        showMenu(model);
+        for (Share share : list) {
+
+            System.out.println(share.toString());
+        }
+        return "share";
     }
     //关于我
     @RequestMapping("/aboutme")

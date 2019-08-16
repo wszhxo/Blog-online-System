@@ -1,9 +1,6 @@
 package cn.coderzhx.mapper;
 
-import cn.coderzhx.entity.Config;
-import cn.coderzhx.entity.Link;
-import cn.coderzhx.entity.Menu;
-import cn.coderzhx.entity.VisitCount;
+import cn.coderzhx.entity.*;
 import cn.coderzhx.pojo.Visit;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,5 +25,5 @@ public interface IndexMapper {
 
     void addipCount(@Param("ipAddress") String ipAddress);
     void addNewVisit(VisitCount visitCount);
-    void totalcount(VisitCount visitCount);
+
 }

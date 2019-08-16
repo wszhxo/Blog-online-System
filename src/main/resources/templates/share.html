@@ -1,10 +1,10 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="gbk">
-<title>Ä£°å·ÖÏí_ÑîÇà¸öÈË²©¿Í - Ò»¸öÕ¾ÔÚwebÇ°¶ËÉè¼ÆÖ®Â·µÄÅ®¼¼ÊõÔ±¸öÈË²©¿ÍÍøÕ¾</title>
-<meta name="keywords" content="¸öÈË²©¿Í,ÑîÇà¸öÈË²©¿Í,¸öÈË²©¿ÍÄ£°å,ÑîÇà" />
-<meta name="description" content="ÑîÇà¸öÈË²©¿Í£¬ÊÇÒ»¸öÕ¾ÔÚwebÇ°¶ËÉè¼ÆÖ®Â·µÄÅ®³ÌÐòÔ±¸öÈËÍøÕ¾£¬Ìá¹©¸öÈË²©¿ÍÄ£°åÃâ·Ñ×ÊÔ´ÏÂÔØµÄ¸öÈËÔ­´´ÍøÕ¾¡£" />
+<meta charset="utf-8">
+<title>æ¨¡æ¿åˆ†äº«_æ¨é’ä¸ªäººåšå®¢ - ä¸€ä¸ªç«™åœ¨webå‰ç«¯è®¾è®¡ä¹‹è·¯çš„å¥³æŠ€æœ¯å‘˜ä¸ªäººåšå®¢ç½‘ç«™</title>
+<meta name="keywords" content="ä¸ªäººåšå®¢,æ¨é’ä¸ªäººåšå®¢,ä¸ªäººåšå®¢æ¨¡æ¿,æ¨é’" />
+<meta name="description" content="æ¨é’ä¸ªäººåšå®¢ï¼Œæ˜¯ä¸€ä¸ªç«™åœ¨webå‰ç«¯è®¾è®¡ä¹‹è·¯çš„å¥³ç¨‹åºå‘˜ä¸ªäººç½‘ç«™ï¼Œæä¾›ä¸ªäººåšå®¢æ¨¡æ¿å…è´¹èµ„æºä¸‹è½½çš„ä¸ªäººåŽŸåˆ›ç½‘ç«™ã€‚" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/base.css" rel="stylesheet">
 <link href="css/index.css" rel="stylesheet">
@@ -16,136 +16,46 @@
 <!--[if lt IE 9]>
 <script src="js/modernizr.js"></script>
 <![endif]-->
+    <style type="text/css">
+
+        .cnt{
+            position:absolute;
+            top: 10px;
+            bottom:-50px;
+            width:100%;
+            opacity: 0;
+            height:50px;
+            font-weight: bolder;
+            color:#000;
+            transition:0.5s;
+            z-index: 44;
+        }
+        .share ul li:hover .cnt{
+            opacity: 1;
+            top: 50px;
+        }
+        .share ul li:hover img{
+            filter:blur(3px);
+        }
+    </style>
 </head>
 <body>
-<header> 
-  <!--menu begin-->
-  <div class="menu">
-    <nav class="nav" id="topnav">
-      <h1 class="logo"><a href="http://www.yangqq.com">ÑîÇà²©¿Í</a></h1>
-      <li><a href="index.html">ÍøÕ¾Ê×Ò³</a> </li>
-      <li><a href="about.html">¹ØÓÚÎÒ</a> </li>
-      <li><a href="share.html">Ä£°å·ÖÏí</a>
-        <ul class="sub-nav">
-          <li><a href="share.html">¸öÈË²©¿ÍÄ£°å</a></li>
-          <li><a href="share.html">¹úÍâHtml5Ä£°å</a></li>
-          <li><a href="share.html">ÆóÒµÍøÕ¾Ä£°å</a></li>
-        </ul>
-      </li>
-      <li><a href="list.html">Ñ§ÎÞÖ¹¾³</a>
-        <ul class="sub-nav">
-          <li><a href="list.html">ÐÄµÃ±Ê¼Ç</a></li>
-          <li><a href="list.html">CSS3|Html5</a></li>
-          <li><a href="list.html">ÍøÕ¾½¨Éè</a></li>
-          <li><a href="list.html">ÍÆ¼ö¹¤¾ß</a></li>
-          <li><a href="list.html">JSÊµÀýË÷Òý</a></li>
-        </ul>
-      </li>
-      <li><a href="life.html">ÂýÉú»î</a>
-        <ul class="sub-nav">
-          <li><a href="life.html">ÈÕ¼Ç</a></li>
-          <li><a href="life.html">ÐÀÉÍ</a></li>
-          <li><a href="life.html">³ÌÐòÈËÉú</a></li>
-          <li><a href="life.html">¾­µäÓïÂ¼</a></li>
-        </ul>
-      </li>
-      <li><a href="time.html">Ê±¼äÖá</a> </li>
-      <li><a href="gbook.html">ÁôÑÔ</a> </li>
-      <li><a href="info.html">ÄÚÈÝÒ³</a> </li>
-      <!--search begin-->
-      <div id="search_bar" class="search_bar">
-        <form  id="searchform" action="[!--news.url--]e/search/index.php" method="post" name="searchform">
-          <input class="input" placeholder="ÏëËÑµãÊ²Ã´ÄØ..." type="text" name="keyboard" id="keyboard">
-          <input type="hidden" name="show" value="title" />
-          <input type="hidden" name="tempid" value="1" />
-          <input type="hidden" name="tbname" value="news">
-          <input type="hidden" name="Submit" value="ËÑË÷" />
-          <span class="search_ico"></span>
-        </form>
-      </div>
-      <!--search end--> 
-    </nav>
-  </div>
-  <!--menu end--> 
-  <!--mnav begin-->
-  <div id="mnav">
-    <h2><a href="http://www.yangqq.com" class="mlogo">ÑîÇà²©¿Í</a><span class="navicon"></span></h2>
-    <dl class="list_dl">
-      <dt class="list_dt"> <a href="index.html">ÍøÕ¾Ê×Ò³</a> </dt>
-      <dt class="list_dt"> <a href="about.html">¹ØÓÚÎÒ</a> </dt>
-      <dt class="list_dt"> <a href="#">Ä£°å·ÖÏí</a> </dt>
-      <dd class="list_dd">
-        <ul>
-          <li><a href="share.html">¸öÈË²©¿ÍÄ£°å</a></li>
-          <li><a href="share.html">¹úÍâHtml5Ä£°å</a></li>
-          <li><a href="share.html">ÆóÒµÍøÕ¾Ä£°å</a></li>
-        </ul>
-      </dd>
-      <dt class="list_dt"> <a href="#">Ñ§ÎÞÖ¹¾³</a> </dt>
-      <dd class="list_dd">
-        <ul>
-          <li><a href="list.html">ÐÄµÃ±Ê¼Ç</a></li>
-          <li><a href="list.html">CSS3|Html5</a></li>
-          <li><a href="list.html">ÍøÕ¾½¨Éè</a></li>
-          <li><a href="list.html">ÍÆ¼ö¹¤¾ß</a></li>
-          <li><a href="list.html">JSÊµÀýË÷Òý</a></li>
-        </ul>
-      </dd>
-      <dt class="list_dt"> <a href="#">ÂýÉú»î</a> </dt>
-      <dd class="list_dd">
-        <ul>
-          <li><a href="life.html">ÈÕ¼Ç</a></li>
-          <li><a href="life.html">ÐÀÉÍ</a></li>
-          <li><a href="life.html">³ÌÐòÈËÉú</a></li>
-          <li><a href="life.html">¾­µäÓïÂ¼</a></li>
-        </ul>
-      </dd>
-      <dt class="list_dt"> <a href="time.html">Ê±¼äÖá</a> </dt>
-      <dt class="list_dt"> <a href="gbook.html">ÁôÑÔ</a> </dt>
-    </dl>
-  </div>
-  <!--mnav end--> 
-</header>
+<div th:replace="header :: head"></div>
 <div class="pagebg sh"></div>
 <div class="container">
-  <h1 class="t_nav"><span>ºÃ¿§·ÈÒªºÍÅóÓÑÒ»ÆðÆ·³¢£¬ºÃ¡°Ä£°å¡±Ò²ÒªºÍÍ¬ÑùÏ²»¶ËüµÄÈËÒ»Æð·ÖÏí¡£ </span><a href="/" class="n1">ÍøÕ¾Ê×Ò³</a><a href="/" class="n2">Ä£°å·ÖÏí</a></h1>
-
+  <h1 class="t_nav"><span>å¥½å’–å•¡è¦å’Œæœ‹å‹ä¸€èµ·å“å°ï¼Œå¥½â€œèµ„æºâ€ä¹Ÿè¦å’ŒåŒæ ·å–œæ¬¢å®ƒçš„äººä¸€èµ·åˆ†äº«ã€‚ </span><a href="/" class="n1">ç½‘ç«™é¦–é¡µ</a><a href="/" class="n2">èµ„æºåˆ†äº«</a></h1>
 
 <div class="share">
 <ul>
- <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/toppic01.jpg"></i>
-      <h2><b>±ðÈÃÕâÐ©ÄÖÐÄµÄÌ×Â·£¬»ÙÁËÄãµÄÍøÒ³Éè¼Æ!</b></h2>
-      <span>Ï²»¶ | 190</span> </a></div> </li>
- <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/toppic02.jpg"></i>
-      <h2><b>Ä°ÉÏ»¨¿ª£¬¿É»º»º¹éÒÓ</b></h2>
-      <span>Ï²»¶ | 190</span> </a></div> </li>
- <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/banner01.jpg"></i>
-      <h2><b>ÍøÒ³ÖÐÍ¼Æ¬ÊôÐÔ¹Ì¶¨¿í¶È£¬ÈçºÎÓÃjs¸Ä±ä´óÐ¡</b></h2>
-      <span>Ï²»¶ | 190</span> </a> </div> </li>
- <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/text01.jpg"></i>
-      <h2><b>¸öÈË²©¿Í£¬ÊôÓÚÎÒµÄÐ¡ÊÀ½ç£¡</b></h2>
-      <span>Ï²»¶ | 190</span> </a> </div> </li>
- <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/text02.jpg"></i>
-      <h2><b>html5¸öÈË²©¿ÍÄ£°å¡¶ºÚÉ«¸ñµ÷¡·</b></h2>
-      <span>Ï²»¶ | 190</span> </a> </div> </li>
- <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/banner02.jpg"></i>
-      <h2><b>µÛ¹úcms Ê×Ò³»òÕßÁÐ±íÎÞÍ¼£¬²»Ê¹ÓÃÄ¬ÈÏÍ¼Æ¬µÄ·½·¨</b></h2>
-      <span>Ï²»¶ | 190</span> </a> </div> </li>
-       <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/text02.jpg"></i>
-      <h2><b>Ê®ÌõÉè¼ÆÔ­Ôò½ÌÄãÑ§»áÈçºÎÉè¼ÆÍøÒ³²¼¾Ö!</b></h2>
-      <span>Ï²»¶ | 190</span> </a> </div> </li>
- <li> <div class="shareli"><a href="/" target="_blank"> <i><img src="images/banner02.jpg"></i>
-      <h2><b>html5¸öÈË²©¿ÍÄ£°åÖ÷Ìâ¡¶ÇåÑÅ¡·</b></h2>
-      <span>Ï²»¶ | 190</span> </a> </div> </li>
+ <li th:each="ls : ${listShare}"><div class="cnt" th:text="${ls.resource}">https://pan.baidu.com/s/1MxuTgbIk4QKDyjxrySfmhgæå–ç ï¼šrjzuå¤åˆ¶è¿™æ®µå†…å®¹åŽæ‰“å¼€ç™¾åº¦ç½‘ç›˜æ‰‹æœºAppï¼Œæ“ä½œæ›´æ–¹ä¾¿å“¦</div>
+     <div class="shareli"> <i><img  th:src="|${ls.img}|"></i>
+      <h2><b  th:utext="${ls.title}">html5ä¸ªäººåšå®¢æ¨¡æ¿ä¸»é¢˜ã€Šæ¸…é›…ã€‹</b></h2>
+     </div> </li>
 </ul>
 </div>
-
-<div class="pagelist"><a title="Total record">&nbsp;<b>45</b> </a>&nbsp;&nbsp;&nbsp;<b>1</b>&nbsp;<a href="/download/index_2.html">2</a>&nbsp;<a href="/download/index_2.html">ÏÂÒ»Ò³</a>&nbsp;<a href="/download/index_2.html">Î²Ò³</a></div>
-
-
 </div>
-<footer>
-  <p>Design by <a href="http://www.yangqq.com" target="_blank">ÑîÇà¸öÈË²©¿Í</a> <a href="/">ÊñICP±¸11002373ºÅ-1</a></p>
+<footer  style="position:fixed;bottom:0px;">
+    <p>Design by <a href="http://coderzhx.cn" target="_blank">å°å¼ ä¸ªäººåšå®¢</a> <a href="http://beian.miitbeian.gov.cn">æµ™ICPå¤‡19028608å·</a></p>
 </footer>
 <a href="#" class="cd-top">Top</a>
 </body>

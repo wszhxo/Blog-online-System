@@ -89,7 +89,7 @@ on s.id=p.pid;
         update menu
         <set>
         <!--set会自动删除最后的逗号-->
-            <if test="pname!=null">name =#{pname },</if>
+            <if test="pname!=null">name =#{pname},</if>
             <if test="purl!=null">url=#{purl},</if>
             <if test="pstatus!=0">status=#{pstatus},</if>
             <if test="porderno!=0">orderno=#{porderno},</if>

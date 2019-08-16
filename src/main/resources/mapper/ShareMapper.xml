@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coderzhx.mapper.ShareMapper">
+ <select id="listResource" resultType="Share">
+     select * from resources
+ </select>
+<insert id="addShare" parameterType="share">
+    insert into resources(img,title,resource) values (#{img},#{title},#{resource})
+</insert>
+<insert id="delShare" parameterType="Integer">
+   delete from  resources where id=#{id}
+</insert>
+<update id="editShare" parameterType="share">
+    update  resources
+    <set>
+        <!--set会自动删除最后的逗号-->
+        <if test="img!=null">img=#{img},</if>
+        <if test="title!=null">title=#{title},</if>
+        <if test="resource!=null">resource=#{resource},</if>
+    </set>
+    where id=#{id}
+</update>
+</mapper>

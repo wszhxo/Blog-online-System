@@ -44,5 +44,9 @@ public class MyMvcConfig  extends WebMvcConfigurerAdapter {
         registry.addViewController("/config/toaddMenuPage").setViewName("admin/config/addMenu");
         //添加后台菜单
         registry.addViewController("/config/toaddAdminMenuPage").setViewName("admin/config/addMenu");
+        //添加资源
+        registry.addViewController("/toAddSharePage").setViewName("admin/share/addShare");
+        //添加资源
+        registry.addViewController("/admin/share").setViewName("admin/share/share");
     }
 }

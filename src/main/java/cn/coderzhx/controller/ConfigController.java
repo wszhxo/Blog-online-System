@@ -106,12 +106,14 @@ ConfigService configService;
     //编辑菜单
     @PostMapping("/editMenu1")
     public @ResponseBody  String editMenu1(MenuPojo menuPojo){
+        System.out.println(menuPojo);
         configService.editMenu1(menuPojo);
         return "success";
     }
     //编辑菜单
     @PostMapping("/editMenu2")
     public @ResponseBody  String editMenu2(MenuPojo menuPojo){
+        System.out.println(menuPojo);
         configService.editMenu2(menuPojo);
         return "success";
     }

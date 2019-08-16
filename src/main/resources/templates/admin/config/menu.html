@@ -123,8 +123,8 @@
           if (field.substring(0,1)=="p") {
             var data1 = {};
             data1[field]=value;
-            data1["cid"]=data.cid;
-              $.post('/config/editMenu1',{pid:data.pid,field:value},function(result){
+            data1["pid"]=data.pid;
+              $.post('/config/editMenu1',data1,function(result){
                   if(result.success){layer.msg('修改成功');}
               },'json');
            //操作子节点

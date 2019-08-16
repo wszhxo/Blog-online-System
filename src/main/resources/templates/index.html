@@ -65,10 +65,10 @@
                 <p class="abname" th:text="${config.username}+' | '+${config.name}"></p>
                 <p class="abposition" th:text="${config.job}"></p>
                 <p class="abtext" th:text="${config.summary}"></p>
-                <p class="abname" th:text="'访问人数:'+${totalcount.countip}"></p>
-                <p class="abname" th:text="总浏览量+${totalcount.totalcount}"></p>
-                <p class="abname" th:text="文章总数+${pageBean.totalCount}"></p>
-                <p class="abname" th:text="建站时间+${#strings.substring(config.create_time,0,10)}"></p>
+                <p class="abname" th:text="'访问人数 : &nbsp;'+${totalcount.countip}"></p>
+                <p class="abname" th:text="'总浏览量 : &nbsp;'+${totalcount.totalcount}"></p>
+                <p class="abname" th:text="'文章总数 : &nbsp;'+${pageBean.totalCount}"></p>
+                <p class="abname" th:text="'建站时间 : &nbsp;'+${#strings.substring(config.create_time,0,10)}"></p>
 
             </div>
         </div>

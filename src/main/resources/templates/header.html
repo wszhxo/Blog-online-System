@@ -28,11 +28,11 @@
     <!--menu begin-->
     <div class="menu">
         <nav class="nav" id="topnav">
-            <h1 class="logo"><a href="http://coderzhx.cn">LOGO</a></h1>
+            <h1 class="logo" ><a href="http://coderzhx.cn" th:text="${config.username}" ></a></h1>
                 <li th:each="menus : ${listMenu}" th:if="${menus.pid} == 0"><a th:text="${menus.name}" th:href="@{${menus.url}}" href="index.html"></a>
                     <ul class="sub-nav">
                         <li th:each="menus2 : ${listMenu}" th:if="${menus2.pid==menus.id}" >
-                            <a href="list.html"  th:text="${menus2.name}" th:href="@{${menus2.url}}"></a>
+                            <a href="list.html"  th:text="${menus2.name}" th:href="@{|${menus2.url}|}"></a>
                         </li>
                     </ul>
                 </li>
