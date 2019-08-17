@@ -8,6 +8,12 @@
 
 ## SpringBoot +Shiro+Mybatis +Thymeleaf +Layui+mysql+Lunece
 
+图片上传使用的七牛云在类cn.coderzhx.utils.VariableName里
+
+如果仅仅是本地运行项目的话,可以把上传七牛云点击方法改成添加文章里的markdown编辑器的图片上传方法
+
+cn.coderzhx.controller.AdminBlogController 中的uploadImg方法这个是上传到tomcat上的,但是重新部署服务器图片会消失
+
 ## 数据库设计
 
 - 用户表user
