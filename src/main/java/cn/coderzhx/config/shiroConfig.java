@@ -55,7 +55,6 @@ import java.util.Map;
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/blog/**", "anon");
         filterChainDefinitionMap.put("/authIamge", "anon");
-        filterChainDefinitionMap.put("https://pandao.github.io/editor.md/favicon.ico", "anon");
 
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");

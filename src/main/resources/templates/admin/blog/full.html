@@ -147,8 +147,8 @@
     </div>
     <div id="test-editormd"></div>
 </div>
-<script src="js/jquery.min.js" th:src="@{/editor.md-master/examples/js/jquery.min.js}"></script>
-<script src="../editormd.js" th:src="@{/editor.md-master/editormd.js}"></script>
+<script src="/editor.md-master/examples/js/jquery.min.js" ></script>
+<script src="/editor.md-master/editormd.js" ></script>
 <script src="../../../layuiadmin/layui/layui.js"></script>
 
 
@@ -157,7 +157,7 @@
     layui.config({
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
-        index: 'lib/index' //主入口模块
+        index: '/lib/index' //主入口模块
     }).use(['index', 'form', 'upload'], function () {
         var $ = layui.$
             , admin = layui.admin
@@ -225,33 +225,51 @@
 
     $(function () {
 
-        $.get('/editor.md-master/examples/test.md', function (md) {
+        // $.get('/test.md', function (md) {
+        //     testEditor = editormd("test-editormd", {
+        //         width: "90%",
+        //         height: 740,
+        //         path: '../../../editor.md-master/lib/',
+        //         theme: "white",
+        //         previewTheme: "white",
+        //         editorTheme: "white",
+        //         markdown: md,
+        //         codeFold: true,
+        //         saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+        //         searchReplace: true,
+        //         htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+        //         emoji: true,
+        //         taskList: true,
+        //         tocm: true,         // Using [TOCM]
+        //         tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+        //         flowChart: true,             // 开启流程图支持，默认关闭
+        //         sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+        //         imageUpload: true,
+        //         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        //         imageUploadURL: "/admin/uploadImg",
+        //         onload: function () {
+        //             console.log('onload', this);
+        //         }
+        //     });
+        // });
+
+        $(function () {
             testEditor = editormd("test-editormd", {
                 width: "90%",
-                height: 740,
-                path: '../../../editor.md-master/lib/',
-                theme: "white",
-                previewTheme: "white",
-                editorTheme: "white",
-                markdown: md,
-                codeFold: true,
-                saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
-                searchReplace: true,
-                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
-                emoji: true,
-                taskList: true,
-                tocm: true,         // Using [TOCM]
-                tex: true,                   // 开启科学公式TeX语言支持，默认关闭
-                flowChart: true,             // 开启流程图支持，默认关闭
-                sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+                height: 640,
+                syncScrolling: "single",
+                path: "/editor.md-master/lib/",
                 imageUpload: true,
                 imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                 imageUploadURL: "/admin/uploadImg",
-                onload: function () {
-                    console.log('onload', this);
-                }
+                //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+                saveHTMLToTextarea: true
+                // previewTheme : "dark"
             });
         });
+
+
+
 
         $("#goto-line-btn").bind("click", function () {
             testEditor.gotoLine(90);
@@ -313,6 +331,9 @@
             testEditor.config("tocDropdown", false);
         });
     });
+
+
+
 </script>
 <script>
     //七牛token 七牛云平台安全标识
