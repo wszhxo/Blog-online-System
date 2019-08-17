@@ -6,11 +6,11 @@ package cn.coderzhx.utils;
  */
 public class VariableName {
     //    七牛AK
-    public static final String accessKey = "debCxhDzC7AsgHr9N4ZK45EqxyO3cbjiolCYeYXi";
+    public static final String accessKey = "";
     //    七牛SK
-    public static final String secretKey = "aEvzuBbnJYr-vABv_KJFoseIyT1mLA4OK4C3ji2I";
+    public static final String secretKey = "";
     //    七牛存储空间名
-    public static final String bucket = "wszhxo";
+    public static final String bucket = "";
     //    七牛默认域名
-    public static final String domain = "http://pic.coderzhx.cn";
+    public static final String domain = "";
 }
