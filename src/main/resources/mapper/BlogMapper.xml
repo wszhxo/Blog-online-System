@@ -32,6 +32,12 @@
         </if>
     </select>
 
+    <!--相关文章按分类来-->
+    <select id="listBlogsByCategory2" resultType="blog" parameterType="Integer">
+        select id,title from blog
+        where state=1 and category_id=#{categoryId}
+        order by create_time desc limit 5
+    </select>
     <!--列出博客通过分类-->
     <select id="listBlogsByCategory" resultMap="blogMap" parameterType="cn.coderzhx.pojo.PageBean">
         select b.*,c.name from blog b  LEFT JOIN blog_category c  ON b.category_id=c.id
@@ -188,7 +194,7 @@ INSERT INTO blog(summary,content,html_content,img_url,title,create_time,update_t
     </select>
     <!--列出时间轴-->
     <select id="listTime"  resultType="Blog">
-       SELECT id,title,create_time	FROM   `blog` ;
+       SELECT id,title,create_time	FROM   `blog` order by create_time desc;
     </select>
 
 </mapper>

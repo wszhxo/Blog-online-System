@@ -126,7 +126,7 @@
     <div class="otherlink">
       <h2>相关文章</h2>
       <ul>
-        <li><a href="/download/div/2018-04-22/815.html" title="html5个人博客模板《黑色格调》">html5个人博客模板《黑色格调》</a></li>
+        <li th:each=" blByCat : ${blogsByCategory}"><a th:href="@{/blog/${blByCat.id}}" th:utext="${blByCat.title}">html5个人博客模板《黑色格调》</a></li>
       </ul>
     </div>
   </div>

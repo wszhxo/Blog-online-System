@@ -3,11 +3,15 @@ package cn.coderzhx.controller;
 import cn.coderzhx.entity.Blog;
 import cn.coderzhx.entity.BlogCategory;
 import cn.coderzhx.entity.Tags;
+import cn.coderzhx.mapper.BlogMapper;
 import cn.coderzhx.service.BlogService;
 import cn.coderzhx.utils.BlogIndex;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,11 +25,16 @@ import java.util.List;
 public class BLogController {
     @Resource
     BlogService blogService;
+    @Resource
+    BlogMapper blogMapper;
     private BlogIndex blogIndex=new BlogIndex();
     //点击标题,或者图片 进入文章详情页
     @GetMapping("/{id}")
     public String findBlogById(@PathVariable("id") Integer id,Model model) throws Exception {
         final Blog blogById = blogService.findBlogById(id);
+
+        final List<Blog> blogsByCategory = blogMapper.listBlogsByCategory2(blogById.getCategory_id());
+        System.out.println(blogsByCategory);
         //上一篇下一篇文
         final Blog beforeBlog=blogService.findBeforeBlog(id);
         final Blog afterBlog=blogService.findAfterBlog(id);
@@ -37,9 +46,7 @@ public class BLogController {
         model.addAttribute("listTags",tags);
         model.addAttribute("beforeBlog",beforeBlog);
         model.addAttribute("afterBlog",afterBlog);
-//        List<Blog> listBlogs= blogIndex.searchBlog(pageBean.getWord());
-        // 添加索引
-        // blogIndex.addIndex();
+        model.addAttribute("blogsByCategory",blogsByCategory);
         IndexController.showMenu(model);
         return "info";
 

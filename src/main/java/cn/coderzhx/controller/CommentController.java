@@ -38,14 +38,12 @@ public class CommentController {
     //删除评论
     @PostMapping("/delComment/{id}")
     public String delComment(@PathVariable("id") Integer id){
-        System.out.println("delComment"+id);
         commentservice.delComment(id);
         return "success";
     }
     //批量删除评论
     @PostMapping("/batchdelComment/{id}")
     public String batchdelComment(@PathVariable("id") String id){
-        System.out.println("batchdelComment"+id);
         commentservice.batchdelComment(id);
         return "success";
     }

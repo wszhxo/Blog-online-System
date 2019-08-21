@@ -47,5 +47,5 @@ public interface BlogMapper {
     List<Blog> listHitsBlog();
 //时间轴
     List<Blog> listTime();
-
+    List<Blog> listBlogsByCategory2(@Param("categoryId") Integer categoryId);
 }

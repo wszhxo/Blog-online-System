@@ -46,7 +46,6 @@ ConfigService configService;
     //网站配置
     @PostMapping("/edit/{method}")
     public @ResponseBody String editconfig(@PathVariable("method") String method,Config config) {
-        System.out.println(method+config);
         configService.editconfig(config,method);
         return "success";
     }
@@ -106,14 +105,12 @@ ConfigService configService;
     //编辑菜单
     @PostMapping("/editMenu1")
     public @ResponseBody  String editMenu1(MenuPojo menuPojo){
-        System.out.println(menuPojo);
         configService.editMenu1(menuPojo);
         return "success";
     }
     //编辑菜单
     @PostMapping("/editMenu2")
     public @ResponseBody  String editMenu2(MenuPojo menuPojo){
-        System.out.println(menuPojo);
         configService.editMenu2(menuPojo);
         return "success";
     }

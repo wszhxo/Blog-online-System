@@ -27,7 +27,7 @@
     </select>
     <!--列出访问统计-->
     <select id="listTotal" resultType="cn.coderzhx.pojo.Visit">
-        select count(ip) as 'countip' ,sum(reqcount) as 'totalcount' from visitcount
+        select count( DISTINCT  ip) as 'countip' ,sum(reqcount) as 'totalcount' from visitcount
     </select>
     <!--添加访问次数-->
     <update id="addipCount" parameterType="String">

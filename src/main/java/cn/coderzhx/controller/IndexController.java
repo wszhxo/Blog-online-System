@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,12 +50,8 @@ public class IndexController {
     public String index( PageBean pageBean,Model model,HttpServletRequest request) throws Exception {
         String ipAddress = IpUtils.getIpAddr(request);
         //访问网站如果是同一个ip，如果数据库有,就让该ip访问次数+1，
-        List<VisitCount> listVisit=IndexUtils.visitCountMap;
-        Map<String,VisitCount> map=new HashMap<>();
-        for (VisitCount visitCount : listVisit) {
-            map.put(visitCount.getIp(),visitCount);
-        }
-        if(map.containsKey(ipAddress)){
+        Map<String,VisitCount> map1=IndexUtils.map;
+        if(map1.containsKey(ipAddress)){
             indexMapper.addipCount(ipAddress);
         }else{
            //此ip没有就创建新的Map，看情况统一添加
@@ -66,7 +61,8 @@ public class IndexController {
             visitCount.setBrowser(IpUtils.getRequestBrowserInfo(request));
             IndexUtils.newvisitCount.add(visitCount);
             //由于此时我还没有刷新缓存，已经访问过的ip还没加入数据库有可能总是第一次
-            listVisit.add(visitCount);
+//            listVisit.add(visitCount);
+            map1.put(ipAddress,visitCount);
         }
         Visit totalcount = IndexUtils.totalcount;
         PageBean blogList= blogService.listBlogs(pageBean);
@@ -108,10 +104,7 @@ public class IndexController {
         List<Share> list=shareMapper.listResource();
         model.addAttribute("listShare",list);
         showMenu(model);
-        for (Share share : list) {
 
-            System.out.println(share.toString());
-        }
         return "share";
     }
     //关于我

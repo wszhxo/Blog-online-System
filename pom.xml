@@ -182,6 +182,12 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
+        <!-- 缓存 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

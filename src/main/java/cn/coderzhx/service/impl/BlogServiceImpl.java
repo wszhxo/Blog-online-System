@@ -6,6 +6,9 @@ import cn.coderzhx.entity.Tags;
 import cn.coderzhx.mapper.BlogMapper;
 import cn.coderzhx.pojo.PageBean;
 import cn.coderzhx.service.BlogService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,8 +46,10 @@ class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Cacheable(cacheNames = "findBlogById")
     public Blog findBlogById(int id) {
-        return blogMapper.findBlogById(id);
+        System.out.println("缓存测试");
+        return  blogMapper.findBlogById(id);
     }
 
     @Override
@@ -99,6 +104,7 @@ class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "findBlogById", key = "#id")
     public void delBlog(Integer id) {
         blogMapper.delBlog(id);
         Tags tags = new Tags();
@@ -109,6 +115,7 @@ class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @CachePut(cacheNames = "findBlogById", key = "#blog.id")
     public void editBlog(Blog blog) {
         blogMapper.editBlog(blog);
     }
