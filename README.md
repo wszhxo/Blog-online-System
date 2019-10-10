@@ -1,5 +1,3 @@
-# Blog-online-System
-已经上线的SpringBoot博客项目
 # 技术栈
 
 前台 http://coderzhx.cn/ 
@@ -8,11 +6,27 @@
 
 ## SpringBoot +Shiro+Mybatis +Thymeleaf +Layui+mysql+Lunece
 
-图片上传使用的七牛云在类cn.coderzhx.utils.VariableName里
+图片使用的七牛云,属性设置在类cn.coderzhx.utils.VariableName里
 
-如果仅仅是本地运行项目的话,可以把上传七牛云点击方法改成添加文章里的markdown编辑器的图片上传方法
+## 如果不想用七牛云那么修改为为tomcat的upload目录
 
-cn.coderzhx.controller.AdminBlogController 中的uploadImg方法这个是上传到tomcat上的,但是重新部署服务器图片会消失
+如果仅仅是本地运行项目的话,七牛云必须得有域名才行所以不能用,使用七牛云的模块就不能用了,也就是文章管理中的添加文章封面模块
+
+当然我也提供了上传到tomcat 的方法cn.coderzhx.controller.AdminBlogController 中的uploadImg,后台markdown编辑器的图片上传按钮就是这个方法,缺点就是重新部署服务器图片会消失
+
+解决方法https://blog.csdn.net/chao821/article/details/85565231
+
+## 标签模块的bug
+
+- 添加文章时标签的样式问题,一个占一行
+- 修改标签只能在标签管理里输入文章id和标签名进行删除,修改
+
+## 删除留言的bug
+
+- 点击黄色删除按钮删除功能并没有实现,我也不知道为啥
+- 只能通过批量删除来删除留言,明明用的是一个方法上面那个却不行,真的奇怪
+
+
 
 ## 数据库设计
 
