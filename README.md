@@ -1,6 +1,6 @@
 # 技术栈
 
-前台 http://coderzhx.cn/ 
+前台 http://coderzhx.cn/ （这个站点已经变了用的solo博客），原先的已经不运行了
 
 后台演示 可以看我B站视频https://www.bilibili.com/video/av64038513/
 
